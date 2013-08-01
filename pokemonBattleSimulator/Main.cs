@@ -65,14 +65,26 @@ namespace pokemonBattleSimulator
 			Console.WriteLine("BATTLE START");
 			
 			//We make a simple test with 2 turns to make sure that the system kinds of works
-			for(int turns = 0; turns <= 1; turns++){
+			for(int turns = 0; turns <= 3; turns++){
+				
+				//calculatePkmn.pokemonAttack(Charmander, Pikachu);
+				calculate calculatePkmn = new calculate();
 				Console.WriteLine( "");
 				Console.WriteLine("TURN"+ turns);
 			
+				Console.WriteLine("Pkmn Name: " + Charmander.name + "  Pkmn Hp: " + Charmander.hp + "  Status " + Charmander.pkmnStatus);
 				Console.WriteLine("Pkmn Name: " + Pikachu.name + "  Pkmn Hp: " + Pikachu.hp + "  Status " + Pikachu.pkmnStatus);
-				calculate calculatePkmn = new calculate();
-				calculatePkmn.pokemonAttack(Charmander, Pikachu);
+				Console.WriteLine(" ");
+				calculatePkmn.pokemonAttack(battleFlow[turns], battleFlow[turns+1]);
+				battleFlow.Add(battleFlow[turns]);
+				
+				Console.WriteLine("Pkmn Name: " + Charmander.name + "  Pkmn Hp: " + Charmander.hp + "  Status " + Charmander.pkmnStatus);
 				Console.WriteLine("Pkmn Name: " + Pikachu.name + "  Pkmn Hp: " + Pikachu.hp + "  Status " + Pikachu.pkmnStatus);
+				
+				if(battleFlow[turns].pkmnStatus == pokemon.status.fainted || battleFlow[turns+1].pkmnStatus == pokemon.status.fainted ){
+					Console.WriteLine("GAME OVER!!!");
+					break;
+				}
 				
 				//We show pikachu's current Status
 				//Pikachu.showPkmnStats();
