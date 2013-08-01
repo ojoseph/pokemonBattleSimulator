@@ -33,19 +33,30 @@ namespace pokemonBattleSimulator
 			pokemon Charmander = new pokemon(4,"Charmander",39,53,43,65);
 			//We show Charmander' stats	
 			//Charmander.showPkmnStats();
+			
+			
+			
 			//We add Charmander to the flow
-			battleFlow.Add(Charmander);
+			//battleFlow.Add(Charmander);
+			
 			//We add Charmander as a participant
 			participants.Add(Charmander);
+			
 			
 			//We Create a new pokemon ID, Name, HP, Atk, Def
 			pokemon Pikachu = new pokemon(25,"Pikachu",35,55,30,90);
 			//We show Pikachu's stats	
 			//Pikachu.showPkmnStats();
 			//We add Pikachu to the flow
-			battleFlow.Add(Pikachu);
+			//battleFlow.Add(Pikachu);
 			//We add Pikachu as a participant
 			participants.Add(Pikachu);
+			
+			calculate calPkmnOrder = new calculate();
+			
+			battleFlow = calPkmnOrder.setBattleFlow(Charmander, Pikachu);
+			
+			
 			
 			//∑We check the order the pokemon will battle.
 			foreach(pokemon things in battleFlow){
@@ -68,7 +79,7 @@ namespace pokemonBattleSimulator
 				//calculatePkmn.pokemonAttack(Charmander, Pikachu);
 				calculate calculatePkmn = new calculate();
 				Console.WriteLine( "");
-				Console.WriteLine("====TURN===="+ turns+1);
+				Console.WriteLine("====TURN===="+ turns);
 			
 				Console.WriteLine("Pkmn Name: " + Charmander.name + "  Pkmn Hp: " + Charmander.hp + "  Status " + Charmander.pkmnStatus);
 				Console.WriteLine("Pkmn Name: " + Pikachu.name + "  Pkmn Hp: " + Pikachu.hp + "  Status " + Pikachu.pkmnStatus);
@@ -214,6 +225,24 @@ namespace pokemonBattleSimulator
 			defPkmn.checkFaints();
 			// defPkmn.showPkmnStats();
 		}
+		
+		
+		public List<pokemon> setBattleFlow(pokemon pkmnSpd1, pokemon pkmnSpd2){
+			List<pokemon> theOrder = new List<pokemon>();
+			
+			if(pkmnSpd1.speed > pkmnSpd2.speed){	
+				//We put the first pkmn first
+				theOrder.Add(pkmnSpd1);
+				theOrder.Add(pkmnSpd2);
+			}else{
+				//We put the second pkmn first
+				theOrder.Add(pkmnSpd2);
+				theOrder.Add(pkmnSpd1);
+			}
+			
+			return theOrder;
+		}
+		
 		
 	}
 	
