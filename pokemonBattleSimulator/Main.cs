@@ -15,8 +15,8 @@ namespace pokemonBattleSimulator
 			
 		}
 		
-		//Will define the turn of the Pokemons/Events 
-		public List<string> theTurns = new List<string>();
+		//Will define the turn of the Pokemons/Trainers 
+		public static List<pokemon> battleFlow = new List<pokemon>();
 		
 		
 		
@@ -24,18 +24,60 @@ namespace pokemonBattleSimulator
 		
 		public static void Main (string[] args)
 		{
+			//////////////////////////////
+			//We Init the Game
+			//////////////////
 			Console.WriteLine ("Pokemon Battle Simulator 2013");
 			
 			//We Create a new pokemon ID, Name, HP, Atk, Def
 			pokemon Charmander = new pokemon(4,"Charmander",39,53,43);
 			//We show Charmander' stats	
-			Charmander.showPkmnStats();
+			//Charmander.showPkmnStats();
+			//We add Charmander to the flow
+			battleFlow.Add(Charmander);
 			
 			
 			//We Create a new pokemon ID, Name, HP, Atk, Def
 			pokemon Pikachu = new pokemon(25,"Pikachu",35,55,30);
 			//We show Pikachu's stats	
-			Pikachu.showPkmnStats();
+			//Pikachu.showPkmnStats();
+			//We add Pikachu to the flow
+			battleFlow.Add(Pikachu);
+			
+			
+			//∑We check the order the pokemon will battle.
+			foreach(pokemon things in battleFlow){
+				
+				//Console.WriteLine("The PKMN: " + things.name);
+			}
+			
+			
+			//////////////////////////////
+			//We Enter Battle
+			//////////////////
+			
+			//we loop and wait for a pokemon to faint
+			/*while(Charmander.pkmnStatus != pokemon.status.fainted || Pikachu.pkmnStatus != pokemon.status.fainted){
+				Console.WriteLine("we battle");
+				
+			}*/
+			
+			Console.WriteLine("BATTLE START");
+			
+			//We make a simple test with 2 turns to make sure that the system kinds of works
+			for(int turns = 0; turns <= 1; turns++){
+				Console.WriteLine( "");
+				Console.WriteLine("TURN"+ turns);
+			
+				Console.WriteLine("Pkmn Name: " + Pikachu.name + "  Pkmn Hp: " + Pikachu.hp + "  Status " + Pikachu.pkmnStatus);
+				calculate calculatePkmn = new calculate();
+				calculatePkmn.pokemonAttack(Charmander, Pikachu);
+				Console.WriteLine("Pkmn Name: " + Pikachu.name + "  Pkmn Hp: " + Pikachu.hp + "  Status " + Pikachu.pkmnStatus);
+				
+				//We show pikachu's current Status
+				//Pikachu.showPkmnStats();
+			}
+			
 			
 			//TEST 1 attack Charmander -> Pikachu
 			
@@ -48,8 +90,12 @@ namespace pokemonBattleSimulator
 			/*Pikachu.checkFaints();
 			Pikachu.showPkmnStats();*/
 			
-			calculate calculatePkmn = new calculate();
-			calculatePkmn.pokemonAttack(Charmander, Pikachu);
+			
+			
+			
+			/////////////////////////////////////////////////////
+			//  calculate calculatePkmn = new calculate();
+			//  calculatePkmn.pokemonAttack(Charmander, Pikachu);
 			/////////////////////////////////////////////////////
 
 		}
@@ -111,6 +157,7 @@ namespace pokemonBattleSimulator
 			Console.WriteLine("HP: " + hp);
 			Console.WriteLine("ATK: " + attack);
 			Console.WriteLine("DEF: " + attack);
+			Console.WriteLine("Status: " + pkmnStatus);
 		}
 		
 		//The pokemon checks if he faints
@@ -120,7 +167,8 @@ namespace pokemonBattleSimulator
 				hp = 0;
 				
 				//The pokemon has fainted
-				Console.Write(name+" has fainted!");
+				 
+				Console.WriteLine("<!>  "+ name + " has fainted! <!>");
 				pkmnStatus = status.fainted;
 			}	
 		}
@@ -137,11 +185,11 @@ namespace pokemonBattleSimulator
 	class calculate{
 		
 		public void pokemonAttack(pokemon atkPkmn, pokemon defPkmn){
+			/*Console.WriteLine(" ");
 			Console.WriteLine(" ");
 			Console.WriteLine(" ");
-			Console.WriteLine(" ");
-			Console.WriteLine(" ");
-			Console.WriteLine("POKEMON ATTACK");
+			Console.WriteLine(" ");*/
+			Console.WriteLine(atkPkmn.name + " ATTACKS");
 			//Console.WriteLine("TestPkmn####: " + defPkmn.hp);
 			//Console.WriteLine("We" + );
 			
@@ -149,7 +197,7 @@ namespace pokemonBattleSimulator
 			defPkmn.hp -= ( atkPkmn.attack - defPkmn.defense);
 			//Console.WriteLine("the Hp" + defPkmn.hp);
 			defPkmn.checkFaints();
-			defPkmn.showPkmnStats();
+			// defPkmn.showPkmnStats();
 		}
 		
 	}
