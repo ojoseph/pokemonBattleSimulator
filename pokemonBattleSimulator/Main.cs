@@ -7,8 +7,7 @@ namespace pokemonBattleSimulator
 	class MainClass
 	{
 		//We might use it to determine the game phases
-		enum gamePhase{
-			
+		enum gamePhase{	
 			init,
 			battle,
 			gameover
@@ -18,7 +17,8 @@ namespace pokemonBattleSimulator
 		//Will define the turn of the Pokemons/Trainers 
 		public static List<pokemon> battleFlow = new List<pokemon>();
 		
-		
+		//Will define the turn of the Pokemons/Trainers 
+		public static List<pokemon> participants = new List<pokemon>();
 		
 		
 		
@@ -30,20 +30,22 @@ namespace pokemonBattleSimulator
 			Console.WriteLine ("Pokemon Battle Simulator 2013");
 			
 			//We Create a new pokemon ID, Name, HP, Atk, Def
-			pokemon Charmander = new pokemon(4,"Charmander",39,53,43);
+			pokemon Charmander = new pokemon(4,"Charmander",39,53,43,65);
 			//We show Charmander' stats	
 			//Charmander.showPkmnStats();
 			//We add Charmander to the flow
 			battleFlow.Add(Charmander);
-			
+			//We add Charmander as a participant
+			participants.Add(Charmander);
 			
 			//We Create a new pokemon ID, Name, HP, Atk, Def
-			pokemon Pikachu = new pokemon(25,"Pikachu",35,55,30);
+			pokemon Pikachu = new pokemon(25,"Pikachu",35,55,30,90);
 			//We show Pikachu's stats	
 			//Pikachu.showPkmnStats();
 			//We add Pikachu to the flow
 			battleFlow.Add(Pikachu);
-			
+			//We add Pikachu as a participant
+			participants.Add(Pikachu);
 			
 			//∑We check the order the pokemon will battle.
 			foreach(pokemon things in battleFlow){
@@ -55,39 +57,37 @@ namespace pokemonBattleSimulator
 			//////////////////////////////
 			//We Enter Battle
 			//////////////////
-			
-			//we loop and wait for a pokemon to faint
-			/*while(Charmander.pkmnStatus != pokemon.status.fainted || Pikachu.pkmnStatus != pokemon.status.fainted){
-				Console.WriteLine("we battle");
-				
-			}*/
-			
 			Console.WriteLine("BATTLE START");
 			
-			//We make a simple test with 2 turns to make sure that the system kinds of works
-			for(int turns = 0; turns <= 3; turns++){
+			//Calculate the number of turns passed
+			int turns = 0;
+			
+			//As long that the pokemon can fight we keep going on.
+			while(participants[0].pkmnStatus == pokemon.status.canBattle || participants[1].pkmnStatus == pokemon.status.canBattle ){	
 				
 				//calculatePkmn.pokemonAttack(Charmander, Pikachu);
 				calculate calculatePkmn = new calculate();
 				Console.WriteLine( "");
-				Console.WriteLine("TURN"+ turns);
+				Console.WriteLine("====TURN===="+ turns+1);
 			
 				Console.WriteLine("Pkmn Name: " + Charmander.name + "  Pkmn Hp: " + Charmander.hp + "  Status " + Charmander.pkmnStatus);
 				Console.WriteLine("Pkmn Name: " + Pikachu.name + "  Pkmn Hp: " + Pikachu.hp + "  Status " + Pikachu.pkmnStatus);
 				Console.WriteLine(" ");
 				calculatePkmn.pokemonAttack(battleFlow[turns], battleFlow[turns+1]);
+				//The pkmn that just attacked  is been moved at the end of the battleflow but  [pkmn1, pkmn2, pkmn1, here we will move pkmn2]
 				battleFlow.Add(battleFlow[turns]);
 				
 				Console.WriteLine("Pkmn Name: " + Charmander.name + "  Pkmn Hp: " + Charmander.hp + "  Status " + Charmander.pkmnStatus);
 				Console.WriteLine("Pkmn Name: " + Pikachu.name + "  Pkmn Hp: " + Pikachu.hp + "  Status " + Pikachu.pkmnStatus);
 				
+				//We increment the turns
+				turns ++;
+				//If a pokemon Faints we end the Battle
 				if(battleFlow[turns].pkmnStatus == pokemon.status.fainted || battleFlow[turns+1].pkmnStatus == pokemon.status.fainted ){
 					Console.WriteLine("GAME OVER!!!");
 					break;
 				}
 				
-				//We show pikachu's current Status
-				//Pikachu.showPkmnStats();
 			}
 			
 			
@@ -137,6 +137,7 @@ namespace pokemonBattleSimulator
 		public int hp;
 		public int attack;
 		public int defense;
+		public int speed;
 		public status pkmnStatus = status.canBattle;
 		//public string[,,,,] theMovesList;
 		
@@ -152,12 +153,13 @@ namespace pokemonBattleSimulator
 		
 		
 		//We make a constructor to set it
-		public pokemon(int pkmnId, string pkmnName, int pkmnHp, int pkmnAttack,  int pkmnDefense){
+		public pokemon(int pkmnId, string pkmnName, int pkmnHp, int pkmnAttack,  int pkmnDefense, int pkmnSpeed){
 			id = pkmnId;
 			name = pkmnName;
 			hp = pkmnHp;
 			attack = pkmnAttack;
 			defense = pkmnDefense;
+			speed = pkmnSpeed;
 		}
 		
 		public void showPkmnStats(){
@@ -169,6 +171,7 @@ namespace pokemonBattleSimulator
 			Console.WriteLine("HP: " + hp);
 			Console.WriteLine("ATK: " + attack);
 			Console.WriteLine("DEF: " + attack);
+			Console.WriteLine("SPD: " + speed);
 			Console.WriteLine("Status: " + pkmnStatus);
 		}
 		
