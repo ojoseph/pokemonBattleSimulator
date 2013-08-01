@@ -6,24 +6,57 @@ namespace pokemonBattleSimulator
 {
 	class MainClass
 	{
+		
+		
 		//We might use it to determine the game phases
-		enum gamePhase{	
+		public enum gamePhase{	
 			init,
 			battle,
 			gameover
-			
 		}
+		
+	
+		
+		//public gamePhase currentGamePhase = gamePhase.init;
+		
+		
+		
+		//gamePhase.init;
+		//currentGamePhase
 		
 		//Will define the turn of the Pokemons/Trainers 
 		public static List<pokemon> battleFlow = new List<pokemon>();
 		
-		//Will define the turn of the Pokemons/Trainers 
+		//Let us know which pokemon will fight 
 		public static List<pokemon> participants = new List<pokemon>();
 		
 		
 		
 		public static void Main (string[] args)
-		{
+		{	
+			////////////////////
+			//Simple FSM
+			gamePhase currPhase = gamePhase.init; 
+			
+			switch(currPhase){
+				case gamePhase.init:
+					Console.WriteLine("GAME PHASE: INIT");
+				break;
+				
+				case gamePhase.battle:
+					Console.WriteLine("GAME PHASE: BATTLE");
+				break;
+				
+				case gamePhase.gameover:
+					Console.WriteLine("GAME PHASE: GAME OVER");
+				break;
+			}
+			
+			
+			
+			
+			
+			
 			//////////////////////////////
 			//We Init the Game
 			//////////////////
@@ -52,8 +85,8 @@ namespace pokemonBattleSimulator
 			//We add Pikachu as a participant
 			participants.Add(Pikachu);
 			
+			//We set the pokemon battleflow
 			calculate calPkmnOrder = new calculate();
-			
 			battleFlow = calPkmnOrder.setBattleFlow(Charmander, Pikachu);
 			
 			
