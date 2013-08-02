@@ -106,9 +106,14 @@ namespace pokemonBattleSimulator
 			
 			
 			//We Create a new pokemon ID, Name, HP, Atk, Def
-			pokemon Charmander = new pokemon(4,"Charmander",39,53,43,65);
+			/*movelist someTemp = new movelist();
+			movelist[] tempArray = new movelist[movelist.moves.ember];*/
+			
+			//someback someTest = new someback();
+			
+			pokemon Charmander = new pokemon(4,"Charmander",39,53,43,65,pokemon.theType.fire);
 			//We show Charmander' stats	
-			//Charmander.showPkmnStats();
+			Charmander.showPkmnStats();
 			
 			
 			
@@ -120,9 +125,9 @@ namespace pokemonBattleSimulator
 			
 			
 			//We Create a new pokemon ID, Name, HP, Atk, Def
-			pokemon Pikachu = new pokemon(25,"Pikachu",35,55,30,90);
+			pokemon Pikachu = new pokemon(25,"Pikachu",35,55,30,90,pokemon.theType.electric);
 			//We show Pikachu's stats	
-			//Pikachu.showPkmnStats();
+			Pikachu.showPkmnStats();
 			//We add Pikachu to the flow
 			//battleFlow.Add(Pikachu);
 			//We add Pikachu as a participant
@@ -246,6 +251,8 @@ namespace pokemonBattleSimulator
 		public int defense;
 		public int speed;
 		public status pkmnStatus = status.canBattle;
+		public theType assignType;
+		//public movelist[,,,] moveSet; 
 		//public string[,,,,] theMovesList;
 		
 		
@@ -259,14 +266,26 @@ namespace pokemonBattleSimulator
 		}
 		
 		
+		public enum theType{
+			grass,
+			fire,
+			water,
+			electric,
+			rock,
+			normal
+		}
+		
+		
 		//We make a constructor to set it
-		public pokemon(int pkmnId, string pkmnName, int pkmnHp, int pkmnAttack,  int pkmnDefense, int pkmnSpeed){
+		public pokemon(int pkmnId, string pkmnName, int pkmnHp, int pkmnAttack,  int pkmnDefense, int pkmnSpeed, theType pkmnType /*, movelist pkmnMoveSet*/){
 			id = pkmnId;
 			name = pkmnName;
 			hp = pkmnHp;
 			attack = pkmnAttack;
 			defense = pkmnDefense;
 			speed = pkmnSpeed;
+			assignType = pkmnType;
+		//	moveSet = pkmnMoveSet;
 		}
 		
 		public void showPkmnStats(){
@@ -280,6 +299,7 @@ namespace pokemonBattleSimulator
 			Console.WriteLine("DEF: " + attack);
 			Console.WriteLine("SPD: " + speed);
 			Console.WriteLine("Status: " + pkmnStatus);
+			Console.WriteLine("TYPE: " + assignType);
 		}
 		
 		//The pokemon checks if he faints
@@ -349,6 +369,7 @@ namespace pokemonBattleSimulator
 	//Might not use it
 	class movelist{
 		enum moves{
+			none,
 			scratch,
 			quickAttack,
 			ember,
