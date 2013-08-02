@@ -4,27 +4,18 @@ using System.Text;
 
 namespace pokemonBattleSimulator
 {
-	class MainClass
-	{
-		
+	class MainClass{
 		
 		//We might use it to determine the game phases
 		public enum gamePhase{	
 			init,
 			battle,
 			gameover,
+			credits,
 			quit
 		}
 		
 		public static gamePhase currPhase;
-	
-		
-		//public gamePhase currentGamePhase = gamePhase.init;
-		
-		
-		
-		//gamePhase.init;
-		//currentGamePhase
 		
 		//Will define the turn of the Pokemons/Trainers 
 		public static List<pokemon> battleFlow = new List<pokemon>();
@@ -33,15 +24,56 @@ namespace pokemonBattleSimulator
 		public static List<pokemon> participants = new List<pokemon>();
 		
 		
+		public static void Main (string[] args){	
+			
+			////////////////////
+			//Simple FSM
+			gamePhase currPhase = gamePhase.init; 
+			
+			while(currPhase != gamePhase.quit){
+		
+				switch(currPhase){
+					case gamePhase.init:
+						Console.WriteLine(" ");
+						Console.WriteLine("GAME PHASE: INIT");
+						currPhase = phaseInit();
+					break;
+					case gamePhase.battle:
+						Console.WriteLine(" ");
+						Console.WriteLine("GAME PHASE: BATTLE");
+						//Console.WriteLine(participants);
+						currPhase = phaseBattle(participants);
+					break;
+					case gamePhase.gameover:
+						Console.WriteLine(" ");
+						Console.WriteLine("GAME PHASE: GAME OVER");
+						//phaseGameover();
+						currPhase = phaseGameover();
+					break;
+					case gamePhase.credits:
+						Console.WriteLine(" ");
+						Console.WriteLine("CREDITS");
+						//phaseGameover();
+						currPhase = phaseCredits();
+					break;
+				}//End Switch
+				
+			}//End While
+			
+
+		}//End Main Fct
+		
+		
+		
+		
+		
+		
 		//-------------------------------------------------------------------------------------------------------------------------
 		//-----------------------------------------------------FSM--------------------------------------------------------------------
 		//-------------------------------------------------------------------------------------------------------------------------
 		
-		
-		
-		
 		//=======================
-		//INIT
+		//<!>Phase: INIT
 		public static gamePhase phaseInit(){
 			Console.WriteLine("ENTER - INIT");
 			
@@ -50,7 +82,28 @@ namespace pokemonBattleSimulator
 			//////////////////////////////
 			//We Init the Game
 			//////////////////
-			Console.WriteLine ("Pokemon Battle Simulator 2013");
+			
+
+			Console.WriteLine ("    ,                           .::.");
+			Console.WriteLine ("                              .;:**'            AMC");
+			Console.WriteLine ("                              `                  0");
+			Console.WriteLine ("  .:XHHHHk.              db.   .;;.     dH  MX   0");
+			Console.WriteLine ("oMMMMMMMMMMM       ~MM  dMMP :MMMMMR   MMM  MR      ~MRMN");
+			Console.WriteLine ("QMMMMMb  :MMX       MMMMMMP !MX: :M~   MMM MMM  .oo. XMMM :MMM");
+			Console.WriteLine ("  `MMMM.  )M> :X!Hk. MMMM   XMM.o:  .  MMMMMMM X?XMMM MMM>!MMP");
+			Console.WriteLine ("   'MMMb.dM! XM M'?M MMMMMX.`MMMMMMMM~ MM MMM XM `: MX MMXXMM");
+			Console.WriteLine ("    ~MMMMM~ XMM. .XM XM`:MMMb.~*?**~ .MMX M t MMbooMM XMMMMMP");
+			Console.WriteLine ("     ?MMM>  YMMMMMM! MM   `?MMRb.    `***   !L:MMMMM XM IMMM");
+			Console.WriteLine ("      MMMX   *MMMM*  MM       ~%:           !Mh.*** dMI IMMP");
+			Console.WriteLine ("      'MMM.                                             IMX");
+			Console.WriteLine ("       ~M!M                                             IMP");
+			Console.WriteLine ("                                                            ");
+			Console.WriteLine ("                ===========================                 ");
+			Console.WriteLine ("                [THE BATTLE SIMULATOR 2013]                 ");
+			Console.WriteLine ("                ===========================                 ");
+			Console.WriteLine ("                                                            ");
+			Console.WriteLine ("                                                            ");
+			
 			
 			//We Create a new pokemon ID, Name, HP, Atk, Def
 			pokemon Charmander = new pokemon(4,"Charmander",39,53,43,65);
@@ -81,19 +134,14 @@ namespace pokemonBattleSimulator
 			
 			
 			
-			//竏糎e check the order the pokemon will battle.
+			//We check the order the pokemon will battle.
 			foreach(pokemon things in battleFlow){
 				
 				//Console.WriteLine("The PKMN: " + things.name);
 			}
 			
-			
-			//Console.WriteLine(someImportedArray);
-			
-			
-			
-			
-			//When the initalization is done we move to the next phase; Battle
+	
+			//<Change Phase>When the initalization is done we move to the next phase; Battle
 			return gamePhase.battle;
 		}
 		
@@ -103,15 +151,8 @@ namespace pokemonBattleSimulator
 		
 		
 		//=======================
-		//BATTLE
+		//<!>Phase: BATTLE
 		public static gamePhase phaseBattle(List<pokemon> someImportedArray){
-			Console.WriteLine("ENTER - BATTLE");
-			Console.WriteLine("We battle the ennemy without no fierce!");
-			
-			
-			
-			
-			
 			
 			//////////////////////////////
 			//We Enter Battle
@@ -144,38 +185,38 @@ namespace pokemonBattleSimulator
 				
 				//If a pokemon Faints we end the Battle
 				if(battleFlow[turns].pkmnStatus == pokemon.status.fainted || battleFlow[turns+1].pkmnStatus == pokemon.status.fainted ){
-					//We call the game over
-					//phaseGameover();
-					//currPhase = gamePhase.gameover;
+					//If a pokemon Faints we break from this loop and read the code that follows
 					break;
 				}
 				
 			}
 
 			
-			
-			
-			
-			
-			
-			
-			//The battle is over so we show the game over
+			//<Change Phase> The battle is over so we show the game over
 			return gamePhase.gameover;
 		}
 		
 		
 		
-		
-		
-		
-		
 		//=======================
-		//GAMEOVER
+		//<!>Phase: GAMEOVER
 		public static gamePhase phaseGameover(){
 			Console.WriteLine("GAME - OVER");
 			
 			
-			//Game is over so we quick
+			//<Change Phase> Game is over so we quick
+			return gamePhase.credits;
+		}
+		
+		
+		
+		//=======================
+		//<!>Phase: CREDITS
+		public static gamePhase phaseCredits(){
+			Console.WriteLine("THANK YOU FOR PLAYING POKEMON C# Version!");
+			Console.WriteLine("@ 2013 Copypasta Rigths None!");
+			
+			//<Change Phase> Game is over so we quick
 			return gamePhase.quit;
 		}
 		
@@ -183,88 +224,9 @@ namespace pokemonBattleSimulator
 		//----------------------------------------------------------FSM END---------------------------------------------------------------
 		//-------------------------------------------------------------------------------------------------------------------------
 		
-		public static void Main (string[] args)
-		{	
-			
-			////////////////////
-			//Simple FSM
-			gamePhase currPhase = gamePhase.init; 
-			
-			while(currPhase != gamePhase.quit){
-			//for(int yup = 0; yup < 3; yup ++){
-				//We keep on playing
-			
-			
-				switch(currPhase){
-					case gamePhase.init:
-						Console.WriteLine(" ");
-						Console.WriteLine("GAME PHASE: INIT");
-						currPhase = phaseInit();
-					break;
-					
-					case gamePhase.battle:
-						Console.WriteLine(" ");
-						Console.WriteLine("GAME PHASE: BATTLE");
-						//Console.WriteLine(participants);
-						currPhase = phaseBattle(participants);
-					break;
-					
-					case gamePhase.gameover:
-						Console.WriteLine(" ");
-						Console.WriteLine("GAME PHASE: GAME OVER");
-						//phaseGameover();
-						currPhase = phaseGameover();
-					break;
-				}
-				
-				
-				
-			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		
-			
-			
-			
-			
-			
-			//TEST 1 attack Charmander -> Pikachu
-			
-			//We atk pikachu
-			//Pikachu.hp -= ( Charmander.attack - Pikachu.defense);
-			
-			//We atk pikachu
-			//Pikachu.hp -= ( Charmander.attack - Pikachu.defense);
-			//Console.WriteLine("The Damage: " + (Charmander.attack - Pikachu.defense));
-			/*Pikachu.checkFaints();
-			Pikachu.showPkmnStats();*/
-			
-			
-			
-			
-			/////////////////////////////////////////////////////
-			//  calculate calculatePkmn = new calculate();
-			//  calculatePkmn.pokemonAttack(Charmander, Pikachu);
-			/////////////////////////////////////////////////////
-
-		}
 		
 		
-		
-		
-		
-	}
-	
-	
-	
+	}//End MainClass
 	
 	
 	
@@ -335,7 +297,7 @@ namespace pokemonBattleSimulator
 		
 		
 		
-	}
+	}//End pkmn Class
 	
 	
 	///////////////////
@@ -378,7 +340,7 @@ namespace pokemonBattleSimulator
 		}
 		
 		
-	}
+	}//End Calculate Class
 	
 	
 	///////////////////
@@ -399,5 +361,5 @@ namespace pokemonBattleSimulator
 			gust
 		}
 		
-	}
+	}//End Movelis Class
 }
