@@ -105,26 +105,26 @@ namespace pokemonBattleSimulator
 			Console.WriteLine ("                                                            ");
 			
 			
-			//We Create a new pokemon ID, Name, HP, Atk, Def
+			
 			/*movelist someTemp = new movelist();
 			movelist[] tempArray = new movelist[movelist.moves.ember];*/
 			
-			//someback someTest = new someback();
-			List<pokemon.moves> segaTempMove = new List<pokemon.moves>();
-			segaTempMove.Add(pokemon.moves.bite);
-			segaTempMove.Add(pokemon.moves.ember);
-			segaTempMove.Add(pokemon.moves.bubble);
-			segaTempMove.Add(pokemon.moves.scratch);
+			//We set the move list for the first Pokemon
+			List<pokemon.moves> CharmanderMVList = new List<pokemon.moves>();
+			CharmanderMVList.Add(pokemon.moves.bite);
+			CharmanderMVList.Add(pokemon.moves.ember);
+			CharmanderMVList.Add(pokemon.moves.slash);
+			CharmanderMVList.Add(pokemon.moves.fireSpin);
+				Console.WriteLine("##################");
 			
-			
-			//We check the order the pokemon will battle.
-			foreach(pokemon.moves things in segaTempMove){
+			//We check the moves that charmander holds
+			foreach(pokemon.moves things in CharmanderMVList){
 				
-				Console.WriteLine("Moves: " + things);
+			//	Console.WriteLine("Moves: " + things);
 			}
 			
-			
-			pokemon Charmander = new pokemon(4,"Charmander",39,53,43,65,pokemon.theType.fire, segaTempMove);
+			//We Create a new pokemon ID, Name, HP, Atk, Def
+			pokemon Charmander = new pokemon(4,"Charmander",39,53,43,65,pokemon.theType.fire, CharmanderMVList);
 			//We show Charmander' stats	
 			Charmander.showPkmnStats();
 			
@@ -142,8 +142,27 @@ namespace pokemonBattleSimulator
 			participants.Add(Charmander);
 			
 			
+			Console.WriteLine(" ");
+			Console.WriteLine(" ");
+			Console.WriteLine(" ");
+			Console.WriteLine(" ");
+			
+			
+			//We set the move list for the first Pokemon
+			List<pokemon.moves> PikachuMVList = new List<pokemon.moves>();
+			PikachuMVList.Add(pokemon.moves.thundershock);
+			PikachuMVList.Add(pokemon.moves.quickAttack);
+			PikachuMVList.Add(pokemon.moves.voltTackle);
+			PikachuMVList.Add(pokemon.moves.surf);
+			
+			//We check the moves that pikachu holds
+			foreach(pokemon.moves somethings in PikachuMVList){
+				
+			//	Console.WriteLine("Moves: " + somethings);
+			}
+			
 			//We Create a new pokemon ID, Name, HP, Atk, Def
-			pokemon Pikachu = new pokemon(25,"Pikachu",35,55,30,90,pokemon.theType.electric, segaTempMove);
+			pokemon Pikachu = new pokemon(25,"Pikachu",35,55,30,90,pokemon.theType.electric, PikachuMVList);
 			//We show Pikachu's stats	
 			Pikachu.showPkmnStats();
 			//We add Pikachu to the flow
@@ -155,10 +174,13 @@ namespace pokemonBattleSimulator
 			calculate calPkmnOrder = new calculate();
 			battleFlow = calPkmnOrder.setBattleFlow(Charmander, Pikachu);
 			
-			
+			Console.WriteLine(" ");
+			Console.WriteLine(" ");
+			Console.WriteLine(" ");
+			Console.WriteLine(" ");
 			
 			//We check the order the pokemon will battle.
-			foreach(pokemon things in battleFlow){
+			foreach(pokemon thingddddds in battleFlow){
 				
 				//Console.WriteLine("The PKMN: " + things.name);
 			}
@@ -309,7 +331,16 @@ namespace pokemonBattleSimulator
 			bubble,
 			thundershock,
 			watergun,
-			gust
+			gust,
+			cut,
+			fireSpin,
+			overheat,
+			thunderPunch,
+			slash,
+			ironTail,
+			slam,
+			voltTackle,
+			surf
 		}
 		
 		
@@ -338,10 +369,10 @@ namespace pokemonBattleSimulator
 			Console.WriteLine("SPD: " + speed);
 			Console.WriteLine("Status: " + pkmnStatus);
 			Console.WriteLine("TYPE: " + assignType);
-			Console.WriteLine("Moves1: " + testMoveArray[0]);
-			Console.WriteLine("Moves2: " + testMoveArray[1]);
-			Console.WriteLine("Moves3: " + testMoveArray[2]);
-			Console.WriteLine("Moves4: " + testMoveArray[3]);
+			Console.WriteLine("Move1: " + testMoveArray[0]);
+			Console.WriteLine("Move2: " + testMoveArray[1]);
+			Console.WriteLine("Move3: " + testMoveArray[2]);
+			Console.WriteLine("Move4: " + testMoveArray[3]);
 		}
 		
 		//The pokemon checks if he faints
