@@ -12,9 +12,11 @@ namespace pokemonBattleSimulator
 		public enum gamePhase{	
 			init,
 			battle,
-			gameover
+			gameover,
+			quit
 		}
 		
+		public static gamePhase currPhase;
 	
 		
 		//public gamePhase currentGamePhase = gamePhase.init;
@@ -31,47 +33,17 @@ namespace pokemonBattleSimulator
 		public static List<pokemon> participants = new List<pokemon>();
 		
 		
+		//-------------------------------------------------------------------------------------------------------------------------
+		//-----------------------------------------------------FSM--------------------------------------------------------------------
+		//-------------------------------------------------------------------------------------------------------------------------
 		
-		public static void phaseInit(){
+		
+		
+		
+		//=======================
+		//INIT
+		public static gamePhase phaseInit(){
 			Console.WriteLine("ENTER - INIT");
-		}
-		
-		
-		
-		public static void phaseBattle(){
-			Console.WriteLine("ENTER - BATTLE");
-		}
-		
-		public static void phaseGameover(){
-			Console.WriteLine("GAME - OVER");
-		}
-		
-		
-		
-		public static void Main (string[] args)
-		{	
-			////////////////////
-			//Simple FSM
-			gamePhase currPhase = gamePhase.init; 
-			
-			switch(currPhase){
-				case gamePhase.init:
-					Console.WriteLine("GAME PHASE: INIT");
-					phaseInit();
-				break;
-				
-				case gamePhase.battle:
-					Console.WriteLine("GAME PHASE: BATTLE");
-					phaseBattle();
-				break;
-				
-				case gamePhase.gameover:
-					Console.WriteLine("GAME PHASE: GAME OVER");
-					phaseGameover();
-				break;
-			}
-			
-			
 			
 			
 			
@@ -109,17 +81,36 @@ namespace pokemonBattleSimulator
 			
 			
 			
-			//∑We check the order the pokemon will battle.
+			//竏糎e check the order the pokemon will battle.
 			foreach(pokemon things in battleFlow){
 				
 				//Console.WriteLine("The PKMN: " + things.name);
 			}
 			
 			
+			//Console.WriteLine(someImportedArray);
 			
 			
 			
+			
+			//When the initalization is done we move to the next phase; Battle
+			return gamePhase.battle;
+		}
 		
+		
+		
+		
+		
+		
+		//=======================
+		//BATTLE
+		public static gamePhase phaseBattle(List<pokemon> someImportedArray){
+			Console.WriteLine("ENTER - BATTLE");
+			Console.WriteLine("We battle the ennemy without no fierce!");
+			
+			
+			
+			
 			
 			
 			//////////////////////////////
@@ -138,25 +129,111 @@ namespace pokemonBattleSimulator
 				Console.WriteLine( "");
 				Console.WriteLine("====TURN===="+ turns);
 			
-				Console.WriteLine("Pkmn Name: " + Charmander.name + "  Pkmn Hp: " + Charmander.hp + "  Status " + Charmander.pkmnStatus);
-				Console.WriteLine("Pkmn Name: " + Pikachu.name + "  Pkmn Hp: " + Pikachu.hp + "  Status " + Pikachu.pkmnStatus);
+				Console.WriteLine("Pkmn Name: " + participants[0].name + "  Pkmn Hp: " + participants[0].hp + "  Status " + participants[0].pkmnStatus);
+				Console.WriteLine("Pkmn Name: " + participants[1].name + "  Pkmn Hp: " + participants[1].hp + "  Status " + participants[1].pkmnStatus);
 				Console.WriteLine(" ");
 				calculatePkmn.pokemonAttack(battleFlow[turns], battleFlow[turns+1]);
 				//The pkmn that just attacked  is been moved at the end of the battleflow but  [pkmn1, pkmn2, pkmn1, here we will move pkmn2]
 				battleFlow.Add(battleFlow[turns]);
 				
-				Console.WriteLine("Pkmn Name: " + Charmander.name + "  Pkmn Hp: " + Charmander.hp + "  Status " + Charmander.pkmnStatus);
-				Console.WriteLine("Pkmn Name: " + Pikachu.name + "  Pkmn Hp: " + Pikachu.hp + "  Status " + Pikachu.pkmnStatus);
+				Console.WriteLine("Pkmn Name: " + participants[0].name + "  Pkmn Hp: " + participants[0].hp + "  Status " + participants[0].pkmnStatus);
+				Console.WriteLine("Pkmn Name: " + participants[1].name + "  Pkmn Hp: " + participants[1].hp + "  Status " + participants[1].pkmnStatus);
 				
 				//We increment the turns
 				turns ++;
+				
 				//If a pokemon Faints we end the Battle
 				if(battleFlow[turns].pkmnStatus == pokemon.status.fainted || battleFlow[turns+1].pkmnStatus == pokemon.status.fainted ){
-					Console.WriteLine("GAME OVER!!!");
+					//We call the game over
+					//phaseGameover();
+					//currPhase = gamePhase.gameover;
 					break;
 				}
 				
 			}
+
+			
+			
+			
+			
+			
+			
+			
+			//The battle is over so we show the game over
+			return gamePhase.gameover;
+		}
+		
+		
+		
+		
+		
+		
+		
+		//=======================
+		//GAMEOVER
+		public static gamePhase phaseGameover(){
+			Console.WriteLine("GAME - OVER");
+			
+			
+			//Game is over so we quick
+			return gamePhase.quit;
+		}
+		
+		//-------------------------------------------------------------------------------------------------------------------------
+		//----------------------------------------------------------FSM END---------------------------------------------------------------
+		//-------------------------------------------------------------------------------------------------------------------------
+		
+		public static void Main (string[] args)
+		{	
+			
+			////////////////////
+			//Simple FSM
+			gamePhase currPhase = gamePhase.init; 
+			
+			while(currPhase != gamePhase.quit){
+			//for(int yup = 0; yup < 3; yup ++){
+				//We keep on playing
+			
+			
+				switch(currPhase){
+					case gamePhase.init:
+						Console.WriteLine(" ");
+						Console.WriteLine("GAME PHASE: INIT");
+						currPhase = phaseInit();
+					break;
+					
+					case gamePhase.battle:
+						Console.WriteLine(" ");
+						Console.WriteLine("GAME PHASE: BATTLE");
+						//Console.WriteLine(participants);
+						currPhase = phaseBattle(participants);
+					break;
+					
+					case gamePhase.gameover:
+						Console.WriteLine(" ");
+						Console.WriteLine("GAME PHASE: GAME OVER");
+						//phaseGameover();
+						currPhase = phaseGameover();
+					break;
+				}
+				
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+			
+			
+			
 			
 			
 			//TEST 1 attack Charmander -> Pikachu
