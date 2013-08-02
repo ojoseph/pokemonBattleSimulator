@@ -32,6 +32,22 @@ namespace pokemonBattleSimulator
 		
 		
 		
+		public static void phaseInit(){
+			Console.WriteLine("ENTER - INIT");
+		}
+		
+		
+		
+		public static void phaseBattle(){
+			Console.WriteLine("ENTER - BATTLE");
+		}
+		
+		public static void phaseGameover(){
+			Console.WriteLine("GAME - OVER");
+		}
+		
+		
+		
 		public static void Main (string[] args)
 		{	
 			////////////////////
@@ -41,17 +57,19 @@ namespace pokemonBattleSimulator
 			switch(currPhase){
 				case gamePhase.init:
 					Console.WriteLine("GAME PHASE: INIT");
+					phaseInit();
 				break;
 				
 				case gamePhase.battle:
 					Console.WriteLine("GAME PHASE: BATTLE");
+					phaseBattle();
 				break;
 				
 				case gamePhase.gameover:
 					Console.WriteLine("GAME PHASE: GAME OVER");
+					phaseGameover();
 				break;
 			}
-			
 			
 			
 			
@@ -96,6 +114,12 @@ namespace pokemonBattleSimulator
 				
 				//Console.WriteLine("The PKMN: " + things.name);
 			}
+			
+			
+			
+			
+			
+		
 			
 			
 			//////////////////////////////
