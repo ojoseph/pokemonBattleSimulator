@@ -15,7 +15,7 @@ namespace pokemonBattleSimulator
 			quit
 		}
 		
-		public static gamePhase currPhase;
+		//public static gamePhase currPhase;
 		
 		//Will define the turn of the Pokemons/Trainers 
 		public static List<pokemon> battleFlow = new List<pokemon>();
@@ -35,7 +35,7 @@ namespace pokemonBattleSimulator
 				switch(currPhase){
 					case gamePhase.init:
 						Console.WriteLine(" ");
-						Console.WriteLine("GAME PHASE: INIT");
+						//Console.WriteLine("GAME PHASE: INIT");
 						currPhase = phaseInit();
 					break;
 					case gamePhase.battle:
@@ -75,7 +75,7 @@ namespace pokemonBattleSimulator
 		//=======================
 		//<!>Phase: INIT
 		public static gamePhase phaseInit(){
-			Console.WriteLine("ENTER - INIT");
+			//Console.WriteLine("ENTER - INIT");
 			
 			
 			
@@ -110,11 +110,29 @@ namespace pokemonBattleSimulator
 			movelist[] tempArray = new movelist[movelist.moves.ember];*/
 			
 			//someback someTest = new someback();
+			List<pokemon.moves> segaTempMove = new List<pokemon.moves>();
+			segaTempMove.Add(pokemon.moves.bite);
+			segaTempMove.Add(pokemon.moves.ember);
+			segaTempMove.Add(pokemon.moves.bubble);
+			segaTempMove.Add(pokemon.moves.scratch);
 			
-			pokemon Charmander = new pokemon(4,"Charmander",39,53,43,65,pokemon.theType.fire);
+			
+			//We check the order the pokemon will battle.
+			foreach(pokemon.moves things in segaTempMove){
+				
+				Console.WriteLine("Moves: " + things);
+			}
+			
+			
+			pokemon Charmander = new pokemon(4,"Charmander",39,53,43,65,pokemon.theType.fire, segaTempMove);
 			//We show Charmander' stats	
 			Charmander.showPkmnStats();
 			
+			
+			//Charmander.testMovesArray[pokemon.moves.bite, pokemon.moves.bite,pokemon.moves.bite,pokemon.moves.bite];
+			/*Charmander.testMovesArray[0,0,0,0] = pokemon.moves.ember;
+			
+			Charmander.testMovesArray tails = new Charmander.testMovesArray();*/
 			
 			
 			//We add Charmander to the flow
@@ -125,7 +143,7 @@ namespace pokemonBattleSimulator
 			
 			
 			//We Create a new pokemon ID, Name, HP, Atk, Def
-			pokemon Pikachu = new pokemon(25,"Pikachu",35,55,30,90,pokemon.theType.electric);
+			pokemon Pikachu = new pokemon(25,"Pikachu",35,55,30,90,pokemon.theType.electric, segaTempMove);
 			//We show Pikachu's stats	
 			Pikachu.showPkmnStats();
 			//We add Pikachu to the flow
@@ -252,6 +270,11 @@ namespace pokemonBattleSimulator
 		public int speed;
 		public status pkmnStatus = status.canBattle;
 		public theType assignType;
+		
+		public static List<moves> testMoveArray = new List<moves>();
+		
+		//public moves[,,,] testMovesArray = new moves[moves.bite,  moves.ember,  moves.scratch, moves.thundershock];
+		//public int testMoveArray[];
 		//public movelist[,,,] moveSet; 
 		//public string[,,,,] theMovesList;
 		
@@ -275,9 +298,23 @@ namespace pokemonBattleSimulator
 			normal
 		}
 		
+		public enum moves{
+			none,
+			scratch,
+			quickAttack,
+			ember,
+			vineWhip,
+			tackle,
+			bite,
+			bubble,
+			thundershock,
+			watergun,
+			gust
+		}
+		
 		
 		//We make a constructor to set it
-		public pokemon(int pkmnId, string pkmnName, int pkmnHp, int pkmnAttack,  int pkmnDefense, int pkmnSpeed, theType pkmnType /*, movelist pkmnMoveSet*/){
+		public pokemon(int pkmnId, string pkmnName, int pkmnHp, int pkmnAttack,  int pkmnDefense, int pkmnSpeed, theType pkmnType, List<moves> pkmnMoveSet){
 			id = pkmnId;
 			name = pkmnName;
 			hp = pkmnHp;
@@ -285,6 +322,7 @@ namespace pokemonBattleSimulator
 			defense = pkmnDefense;
 			speed = pkmnSpeed;
 			assignType = pkmnType;
+			testMoveArray = pkmnMoveSet;
 		//	moveSet = pkmnMoveSet;
 		}
 		
@@ -300,11 +338,16 @@ namespace pokemonBattleSimulator
 			Console.WriteLine("SPD: " + speed);
 			Console.WriteLine("Status: " + pkmnStatus);
 			Console.WriteLine("TYPE: " + assignType);
+			Console.WriteLine("Moves1: " + testMoveArray[0]);
+			Console.WriteLine("Moves2: " + testMoveArray[1]);
+			Console.WriteLine("Moves3: " + testMoveArray[2]);
+			Console.WriteLine("Moves4: " + testMoveArray[3]);
 		}
 		
 		//The pokemon checks if he faints
 		public void checkFaints(){
 			if(hp <= 0){
+				
 				//If the hp goes below 0  we set it back to 0
 				hp = 0;
 				
@@ -368,7 +411,7 @@ namespace pokemonBattleSimulator
 	///////////////////
 	//Might not use it
 	class movelist{
-		enum moves{
+		enum moveasdsdasds{
 			none,
 			scratch,
 			quickAttack,
