@@ -48,7 +48,7 @@ namespace pokemonBattleSimulator
 		
 		
 		
-		public static string updateBattleInfo = "notUpdated";
+		
 		
 		
 		//We might use it to determine the game phases
@@ -68,13 +68,7 @@ namespace pokemonBattleSimulator
 		//Let us know which pokemon will fight 
 		public static List<pokemon> participants = new List<pokemon>();
 		
-		////////////////////////////
-		//UN MAUDIT TIMER 
-		////////////////////////////
-		public static void DisplayTimeEvent( object source, ElapsedEventArgs e ){
-			Console.Write("\r{0}", DateTime.Now);
-			MainClass.updateBattleInfo = "updateDone";
-		}
+		
 		
 		
 		
@@ -88,10 +82,7 @@ namespace pokemonBattleSimulator
 			
 			
 			
-		Timer myTimer = new Timer();
-		myTimer.Elapsed += new ElapsedEventHandler( DisplayTimeEvent );
-		myTimer.Interval = 3000;
-		myTimer.Start();
+		
 		
 		
 	
@@ -505,8 +496,8 @@ namespace pokemonBattleSimulator
 	class calculate{
 		
 		
-		
-		
+		//We declare the switch in here	
+		public	static string updateBattleInfo = "notUpdated";
 		
 		
 		
@@ -530,14 +521,31 @@ namespace pokemonBattleSimulator
 		
 		
 		
-		
+		////////////////////////////
+		//UN MAUDIT TIMER 
+		////////////////////////////
+		public static void DisplayTimeEvent( object source, ElapsedEventArgs e ){
+			Console.Write("\r{0}", DateTime.Now);
+			updateBattleInfo = "updateDone";
+		}
 		
 		
 		
 		
 		
 		public void pokemonAttack(pokemon atkPkmn, pokemon defPkmn){
-			MainClass.updateBattleInfo = "notUpdate";
+		
+			
+			
+			
+			Timer myTimer = new Timer();
+			myTimer.Elapsed += new ElapsedEventHandler( DisplayTimeEvent );
+			myTimer.Interval = 3000;
+			myTimer.Start();
+			
+			
+			
+			updateBattleInfo = "notUpdated";
 			/*Console.WriteLine(" ");
 			Console.WriteLine(" ");
 			Console.WriteLine(" ");
@@ -578,7 +586,7 @@ namespace pokemonBattleSimulator
 			
 			Random theMvRnd = new Random();
 			Console.WriteLine(atkPkmn.name + " USES " + atkPkmn.moveArray[theMvRnd.Next(0,4)]);
-			while(MainClass.updateBattleInfo != "updateDone"){
+			while(updateBattleInfo != "updateDone"){
 			//while ( Console.Read() != 'q' ){
 				; // do nothing...
 					//Console.WriteLine(myTimer.Elapsed);
