@@ -7,50 +7,7 @@ using System.Timers;
 namespace pokemonBattleSimulator
 {
 	class MainClass{
-		
-		
-		
-		
-		
-		
-		
-		
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
 		//We might use it to determine the game phases
 		public enum gamePhase{	
 			init,
@@ -60,66 +17,14 @@ namespace pokemonBattleSimulator
 			quit
 		}
 		
-		//public static gamePhase currPhase;
-		
 		//Will define the turn of the Pokemons/Trainers 
 		public static List<pokemon> battleFlow = new List<pokemon>();
-		
 		//Let us know which pokemon will fight 
 		public static List<pokemon> participants = new List<pokemon>();
-		
-		
-		
-		
-		
-		
-		//public Timer _timer= new Timer(3000);//3 Seconds  
-		
-		public static void Main (string[] args){	
-			
-			
-			
-			
-			
-			
-		
-		
-		
 	
 		
-		
-					
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+		public static void Main (string[] args){	
+
 			
 			////////////////////
 			//Simple FSM
@@ -224,7 +129,7 @@ namespace pokemonBattleSimulator
 			Charmander.showPkmnStats();
 			
 			
-			//Charmander.testMovesArray[pokemon.moves.bite, pokemon.moves.bite,pokemon.moves.bite,pokemon.moves.bite];
+			//<DEBUG> Charmander.testMovesArray[pokemon.moves.bite, pokemon.moves.bite,pokemon.moves.bite,pokemon.moves.bite];
 			/*Charmander.testMovesArray[0,0,0,0] = pokemon.moves.ember;
 			
 			Charmander.testMovesArray tails = new Charmander.testMovesArray();*/
@@ -236,7 +141,7 @@ namespace pokemonBattleSimulator
 			//We add Charmander as a participant
 			participants.Add(Charmander);
 			
-			
+			//We space the info out a bit.
 			Console.WriteLine(" ");
 			Console.WriteLine(" ");
 			Console.WriteLine(" ");
@@ -250,7 +155,7 @@ namespace pokemonBattleSimulator
 			PikachuMVList.Add(pokemon.moves.voltTackle);
 			PikachuMVList.Add(pokemon.moves.surf);
 			
-			//We check the moves that pikachu holds
+			//<DEBUG>We check the moves that pikachu holds
 			foreach(pokemon.moves somethings in PikachuMVList){
 				
 			//	Console.WriteLine("Moves: " + somethings);
@@ -274,7 +179,7 @@ namespace pokemonBattleSimulator
 			Console.WriteLine(" ");
 			Console.WriteLine(" ");
 			
-			//We check the order the pokemon will battle.
+			// <DEBUG> We check the order the pokemon will battle.
 			foreach(pokemon thingddddds in battleFlow){
 				
 				//Console.WriteLine("The PKMN: " + things.name);
@@ -387,13 +292,7 @@ namespace pokemonBattleSimulator
 		public int speed;
 		public status pkmnStatus = status.canBattle;
 		public theType assignType;
-		
 		public  List<moves> moveArray = new List<moves>();
-		
-		//public moves[,,,] testMovesArray = new moves[moves.bite,  moves.ember,  moves.scratch, moves.thundershock];
-		//public int testMoveArray[];
-		//public movelist[,,,] moveSet; 
-		//public string[,,,,] theMovesList;
 		
 		
 		public enum status{
@@ -478,7 +377,6 @@ namespace pokemonBattleSimulator
 				hp = 0;
 				
 				//The pokemon has fainted
-				 
 				Console.WriteLine("<!>  "+ name + " has fainted! <!>");
 				pkmnStatus = status.fainted;
 			}	
@@ -500,32 +398,9 @@ namespace pokemonBattleSimulator
 		public	static string updateBattleInfo = "notUpdated";
 		
 		
-		
-		
-		/*
-		private void timer1_Tick_1(object sender, EventArgs e)
-		{
-		   counter--; //Decrease the counter, just like the timer decreases.[/COLOR]
-		   if (counter == 0) //If we hit 0, or any other number we'd like to check.[/COLOR]
-		    {
-		      //MessageBox.Show("Time Up!");
-		      counter = timer.Interval; //Reset the counter.[/COLOR]
-		      timer.Start(); //Re-start the timer.[/COLOR]
-		    }        
-		}*/
-		
-		
-		
-		
-		
-		
-		
-		
-		////////////////////////////
-		//UN MAUDIT TIMER 
-		////////////////////////////
+		//Function called through the timer
 		public static void DisplayTimeEvent( object source, ElapsedEventArgs e ){
-			Console.Write("\r{0}", DateTime.Now);
+			//Console.Write("\r{0}", DateTime.Now);
 			updateBattleInfo = "updateDone";
 		}
 		
@@ -534,68 +409,26 @@ namespace pokemonBattleSimulator
 		
 		
 		public void pokemonAttack(pokemon atkPkmn, pokemon defPkmn){
-		
 			
-			
-			
+			//We set a timer in order to update the infos every 3 seconds
 			Timer myTimer = new Timer();
 			myTimer.Elapsed += new ElapsedEventHandler( DisplayTimeEvent );
 			myTimer.Interval = 3000;
 			myTimer.Start();
 			
-			
-			
+			//We use this ftc a switch in order to know  if the infos are updated or not.
 			updateBattleInfo = "notUpdated";
-			/*Console.WriteLine(" ");
-			Console.WriteLine(" ");
-			Console.WriteLine(" ");
-			Console.WriteLine(" ");*/
 			
-			// From System.Timers
-			
-			//_timer.Interval = 3000;
-			//_timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
-			//_timer = new Timer(3000);//3 Seconds 
-			
-			//_timer.Elapsed += new ElapsedEventHandler(_timer);
-			//_timer.Enabled = true;
-			
-			//_timer.Start();
-			//double counter = _timer.Interval;
-			//Console.WriteLine("ELAPSED TIME: " + counter);
-			
-			
-			
-			
-			/*
-			//We make and instance of the  actual time.	
-			DateTime theDate = DateTime.Now;	
-			//We set up the time we want to add	
-			TimeSpan theTimeSpan = new TimeSpan(0,0,0,30,0);
-			Console.WriteLine(theTimeSpan);
-			//We add this in a new time Value	
-			DateTime theTargetTimeValue = theDate.Add(theTimeSpan);
-			Console.WriteLine("The time we are targeting: " + "NOW: " + theDate.Millisecond + ":" + "TARGET: " + theTargetTimeValue.Millisecond);
-			
-			*/
-			/*while(theDate.Second <= theTargetTimeValue.Second){
-				Console.WriteLine("WATING");
-				Console.WriteLine("The time we are targeting: " + "NOW: " + theDate.Second + ":" + "TARGET: " + theTargetTimeValue.Second);
-			
-			}*/
-			
+			//We choose a random move from the pkmn's moveList and display it.
 			Random theMvRnd = new Random();
 			Console.WriteLine(atkPkmn.name + " USES " + atkPkmn.moveArray[theMvRnd.Next(0,4)]);
+			
+			//We wait for the updateBattleInfo to be clear in order to  update the infos.
 			while(updateBattleInfo != "updateDone"){
-			//while ( Console.Read() != 'q' ){
 				; // do nothing...
-					//Console.WriteLine(myTimer.Elapsed);
 			}
 			
-			//theTime.Second;
-			//Console.WriteLine("ZE TAIMU" + theTime);
-			
-			
+			//We skip a line to make it clean, you know!
 			Console.WriteLine(" ");
 			//We atk pikachu and change it Hp.
 			defPkmn.hp -= ( atkPkmn.attack - defPkmn.defense);
