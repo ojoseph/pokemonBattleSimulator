@@ -298,6 +298,15 @@ namespace pokemonBattleSimulator
 					//We remove the fainted pokemon from the trainer's team as it is unable to battle.
 					
 					
+					if(participants[0].pkmnStatus == pokemon.status.fainted){
+							Console.WriteLine("FIRST pokemon has fainted");
+							
+					}
+					
+					if(participants[1].pkmnStatus == pokemon.status.fainted){
+							Console.WriteLine("SECOND pokemon has fainted");
+					}
+					
 					//If a pokemon Faints we break from this loop and read the code that follows
 					break;
 				}
