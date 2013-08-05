@@ -2,7 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="pokemonBattleSimulator/Main.cs">
     <Files>
-      <File FileName="pokemonBattleSimulator/Main.cs" Line="25" Column="13" />
+      <File FileName="pokemonBattleSimulator/Main.cs" Line="180" Column="27" />
       <File FileName="../SimpleProgram1/SimpleProgram1/Main.cs" Line="18" Column="11" />
     </Files>
     <Pads>

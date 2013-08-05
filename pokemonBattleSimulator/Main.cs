@@ -115,7 +115,7 @@ namespace pokemonBattleSimulator
 			CharmanderMVList.Add(pokemon.moves.ember);
 			CharmanderMVList.Add(pokemon.moves.slash);
 			CharmanderMVList.Add(pokemon.moves.fireSpin);
-				Console.WriteLine("##################");
+			Console.WriteLine("##################");
 			
 			//We check the moves that charmander holds
 			foreach(pokemon.moves things in CharmanderMVList){
@@ -293,7 +293,7 @@ namespace pokemonBattleSimulator
 		public status pkmnStatus = status.canBattle;
 		public theType assignType;
 		
-		public static List<moves> testMoveArray = new List<moves>();
+		public  List<moves> testMoveArray = new List<moves>();
 		
 		//public moves[,,,] testMovesArray = new moves[moves.bite,  moves.ember,  moves.scratch, moves.thundershock];
 		//public int testMoveArray[];
@@ -405,10 +405,10 @@ namespace pokemonBattleSimulator
 			Console.WriteLine(" ");
 			Console.WriteLine(" ");
 			Console.WriteLine(" ");*/
-			Console.WriteLine(atkPkmn.name + " ATTACKS");
-			//Console.WriteLine("TestPkmn####: " + defPkmn.hp);
-			//Console.WriteLine("We" + );
 			
+			Random theMvRnd = new Random();
+			Console.WriteLine(atkPkmn.name + " USES " + atkPkmn.testMoveArray[theMvRnd.Next(0,4)]);
+			Console.WriteLine(" ");
 			//We atk pikachu and change it Hp.
 			defPkmn.hp -= ( atkPkmn.attack - defPkmn.defense);
 			//Console.WriteLine("the Hp" + defPkmn.hp);
