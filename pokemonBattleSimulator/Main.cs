@@ -210,15 +210,25 @@ namespace pokemonBattleSimulator
 			
 			trainer trainerLass = new trainer("Anna", trainer.e_classType.lass, pkmnTeamList);
 			Console.WriteLine("Trainer: " + trainerLass.name + " " + trainerLass.trainerClass + " " + trainerLass.team.Count);
+			//We add pikachu to the trainer's team.
 			pkmnTeamList.Add(Pikachu);
-			Console.WriteLine("Trainer: " + trainerLass.name + " " + trainerLass.trainerClass + " " + trainerLass.team.Count + " " + trainerLass.team[0].name);
+			//Console.WriteLine("Trainer: " + trainerLass.name + " " + trainerLass.trainerClass + " " + trainerLass.team.Count + " " + trainerLass.team[0].name);
+			//We show the trainer's Stats
+			trainerLass.showTrainerStats();
 			
 			
+			//We clear the table and get it ready for the next trainer
+			pkmnTeamList.Clear();
 			
 			
+			//We put charmander in the list we want to add to the trainer
+			pkmnTeamList.Add(Charmander);
+			//We create a new trainer.
+			trainer trainerCoolgtrainer = new trainer("Amaya", trainer.e_classType.coolTrainer, pkmnTeamList);
+			//Console.WriteLine("Trainer: " + trainerCoolgtrainer.name + " " + trainerCoolgtrainer.trainerClass + " " + trainerCoolgtrainer.team.Count + " " + trainerCoolgtrainer.team[0].name);
 			
-			
-			
+			//We show the trainer's Stats
+			trainerCoolgtrainer.showTrainerStats();
 			
 			
 			
@@ -551,7 +561,8 @@ namespace pokemonBattleSimulator
 			rocketGrunt,
 			biker,
 			burglar,
-			schoolKid
+			schoolKid,
+			coolTrainer
 		}
 		
 		
@@ -564,6 +575,19 @@ namespace pokemonBattleSimulator
 			trainerClass = trainerClassType;
 			team = trainerTeam;
 		}
+		
+		
+		public void showTrainerStats(){
+			Console.WriteLine("");
+			Console.WriteLine("[Viewing " + trainerClass + "  " + name + " stats]");
+			Console.WriteLine("");
+			Console.WriteLine("Class: " + trainerClass);
+			Console.WriteLine("Name: " + name);
+			Console.WriteLine("#Pkmn: " + team.Count);
+			Console.WriteLine("Active Pkmn: " + team[0].name);
+			Console.WriteLine("Benched Pkmn: " + "None");
+		}
+		
 		
 	}//End trainer Class
 	
