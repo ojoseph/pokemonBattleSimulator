@@ -147,11 +147,6 @@ namespace pokemonBattleSimulator
 			Charmander.testMovesArray tails = new Charmander.testMovesArray();*/
 			
 			
-			//We add Charmander to the flow
-			//battleFlow.Add(Charmander);
-			
-			//We add Charmander as a participant
-			//participants.Add(Charmander);
 			
 			//We space the info out a bit.
 			Console.WriteLine(" ");
@@ -209,8 +204,14 @@ namespace pokemonBattleSimulator
 			
 			trainer trainerLass = new trainer("Anna", trainer.e_classType.lass, pkmnTeamList);
 			Console.WriteLine("Trainer: " + trainerLass.name + " " + trainerLass.trainerClass + " " + trainerLass.team.Count);
+			
+			//We assign pikachu to a trainer
+			Pikachu.trainerName = trainerLass.name;
 			//We add pikachu to the trainer's team.
 			pkmnTeamList.Add(Pikachu);
+			
+			
+			
 			//Console.WriteLine("Trainer: " + trainerLass.name + " " + trainerLass.trainerClass + " " + trainerLass.team.Count + " " + trainerLass.team[0].name);
 			//We show the trainer's Stats
 			trainerLass.showTrainerStats();
@@ -222,11 +223,16 @@ namespace pokemonBattleSimulator
 			pkmnTeamList.Clear();
 			
 			
-			//We put charmander in the list we want to add to the trainer
-			pkmnTeamList.Add(Charmander);
 			//We create a new trainer.
 			trainer trainerCoolgtrainer = new trainer("Amaya", trainer.e_classType.coolTrainer, pkmnTeamList);
 			//Console.WriteLine("Trainer: " + trainerCoolgtrainer.name + " " + trainerCoolgtrainer.trainerClass + " " + trainerCoolgtrainer.team.Count + " " + trainerCoolgtrainer.team[0].name);
+			
+			
+			//We assign charmander to a trainer
+			Charmander.trainerName = trainerCoolgtrainer.name;
+			//We put charmander in the list we want to add to the trainer
+			pkmnTeamList.Add(Charmander);
+			Charmander.showPkmnStats();
 			
 			//We show the trainer's Stats
 			trainerCoolgtrainer.showTrainerStats();
@@ -289,6 +295,9 @@ namespace pokemonBattleSimulator
 				
 				//If a pokemon Faints we end the Battle
 				if(battleFlow[turns].pkmnStatus == pokemon.status.fainted || battleFlow[turns+1].pkmnStatus == pokemon.status.fainted ){
+					//We remove the fainted pokemon from the trainer's team as it is unable to battle.
+					
+					
 					//If a pokemon Faints we break from this loop and read the code that follows
 					break;
 				}
@@ -352,7 +361,7 @@ namespace pokemonBattleSimulator
 		public status pkmnStatus = status.canBattle;
 		public theType assignType;
 		public  List<moves> moveArray = new List<moves>();
-		
+		public string trainerName = "none";
 		
 		public enum status{
 			canBattle,
@@ -426,6 +435,7 @@ namespace pokemonBattleSimulator
 			Console.WriteLine("Move2: " + moveArray[1]);
 			Console.WriteLine("Move3: " + moveArray[2]);
 			Console.WriteLine("Move4: " + moveArray[3]);
+			Console.WriteLine("Belongs to: " + trainerName);
 		}
 		
 		//The pokemon checks if he faints
