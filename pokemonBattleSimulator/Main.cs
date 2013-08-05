@@ -1,10 +1,55 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Timers;
+
 
 namespace pokemonBattleSimulator
 {
 	class MainClass{
+		
+		
+		
+		
+		
+		
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		public static string updateBattleInfo = "notUpdated";
+		
 		
 		//We might use it to determine the game phases
 		public enum gamePhase{	
@@ -23,8 +68,67 @@ namespace pokemonBattleSimulator
 		//Let us know which pokemon will fight 
 		public static List<pokemon> participants = new List<pokemon>();
 		
+		////////////////////////////
+		//UN MAUDIT TIMER 
+		////////////////////////////
+		public static void DisplayTimeEvent( object source, ElapsedEventArgs e ){
+			Console.Write("\r{0}", DateTime.Now);
+			MainClass.updateBattleInfo = "updateDone";
+		}
+		
+		
+		
+		
+		//public Timer _timer= new Timer(3000);//3 Seconds  
 		
 		public static void Main (string[] args){	
+			
+			
+			
+			
+			
+			
+		Timer myTimer = new Timer();
+		myTimer.Elapsed += new ElapsedEventHandler( DisplayTimeEvent );
+		myTimer.Interval = 3000;
+		myTimer.Start();
+		
+		
+	
+		
+		
+					
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			////////////////////
 			//Simple FSM
@@ -293,7 +397,7 @@ namespace pokemonBattleSimulator
 		public status pkmnStatus = status.canBattle;
 		public theType assignType;
 		
-		public  List<moves> testMoveArray = new List<moves>();
+		public  List<moves> moveArray = new List<moves>();
 		
 		//public moves[,,,] testMovesArray = new moves[moves.bite,  moves.ember,  moves.scratch, moves.thundershock];
 		//public int testMoveArray[];
@@ -353,7 +457,7 @@ namespace pokemonBattleSimulator
 			defense = pkmnDefense;
 			speed = pkmnSpeed;
 			assignType = pkmnType;
-			testMoveArray = pkmnMoveSet;
+			moveArray = pkmnMoveSet;
 		//	moveSet = pkmnMoveSet;
 		}
 		
@@ -369,10 +473,10 @@ namespace pokemonBattleSimulator
 			Console.WriteLine("SPD: " + speed);
 			Console.WriteLine("Status: " + pkmnStatus);
 			Console.WriteLine("TYPE: " + assignType);
-			Console.WriteLine("Move1: " + testMoveArray[0]);
-			Console.WriteLine("Move2: " + testMoveArray[1]);
-			Console.WriteLine("Move3: " + testMoveArray[2]);
-			Console.WriteLine("Move4: " + testMoveArray[3]);
+			Console.WriteLine("Move1: " + moveArray[0]);
+			Console.WriteLine("Move2: " + moveArray[1]);
+			Console.WriteLine("Move3: " + moveArray[2]);
+			Console.WriteLine("Move4: " + moveArray[3]);
 		}
 		
 		//The pokemon checks if he faints
@@ -400,14 +504,90 @@ namespace pokemonBattleSimulator
 	//Might not use it
 	class calculate{
 		
+		
+		
+		
+		
+		
+		
+		
+		/*
+		private void timer1_Tick_1(object sender, EventArgs e)
+		{
+		   counter--; //Decrease the counter, just like the timer decreases.[/COLOR]
+		   if (counter == 0) //If we hit 0, or any other number we'd like to check.[/COLOR]
+		    {
+		      //MessageBox.Show("Time Up!");
+		      counter = timer.Interval; //Reset the counter.[/COLOR]
+		      timer.Start(); //Re-start the timer.[/COLOR]
+		    }        
+		}*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		public void pokemonAttack(pokemon atkPkmn, pokemon defPkmn){
+			MainClass.updateBattleInfo = "notUpdate";
 			/*Console.WriteLine(" ");
 			Console.WriteLine(" ");
 			Console.WriteLine(" ");
 			Console.WriteLine(" ");*/
 			
+			// From System.Timers
+			
+			//_timer.Interval = 3000;
+			//_timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
+			//_timer = new Timer(3000);//3 Seconds 
+			
+			//_timer.Elapsed += new ElapsedEventHandler(_timer);
+			//_timer.Enabled = true;
+			
+			//_timer.Start();
+			//double counter = _timer.Interval;
+			//Console.WriteLine("ELAPSED TIME: " + counter);
+			
+			
+			
+			
+			/*
+			//We make and instance of the  actual time.	
+			DateTime theDate = DateTime.Now;	
+			//We set up the time we want to add	
+			TimeSpan theTimeSpan = new TimeSpan(0,0,0,30,0);
+			Console.WriteLine(theTimeSpan);
+			//We add this in a new time Value	
+			DateTime theTargetTimeValue = theDate.Add(theTimeSpan);
+			Console.WriteLine("The time we are targeting: " + "NOW: " + theDate.Millisecond + ":" + "TARGET: " + theTargetTimeValue.Millisecond);
+			
+			*/
+			/*while(theDate.Second <= theTargetTimeValue.Second){
+				Console.WriteLine("WATING");
+				Console.WriteLine("The time we are targeting: " + "NOW: " + theDate.Second + ":" + "TARGET: " + theTargetTimeValue.Second);
+			
+			}*/
+			
 			Random theMvRnd = new Random();
-			Console.WriteLine(atkPkmn.name + " USES " + atkPkmn.testMoveArray[theMvRnd.Next(0,4)]);
+			Console.WriteLine(atkPkmn.name + " USES " + atkPkmn.moveArray[theMvRnd.Next(0,4)]);
+			while(MainClass.updateBattleInfo != "updateDone"){
+			//while ( Console.Read() != 'q' ){
+				; // do nothing...
+					//Console.WriteLine(myTimer.Elapsed);
+			}
+			
+			//theTime.Second;
+			//Console.WriteLine("ZE TAIMU" + theTime);
+			
+			
 			Console.WriteLine(" ");
 			//We atk pikachu and change it Hp.
 			defPkmn.hp -= ( atkPkmn.attack - defPkmn.defense);
@@ -441,7 +621,7 @@ namespace pokemonBattleSimulator
 	/// Class Movelist.
 	///////////////////
 	//Might not use it
-	class movelist{
+/*	class movelist{
 		enum moveasdsdasds{
 			none,
 			scratch,
@@ -456,5 +636,5 @@ namespace pokemonBattleSimulator
 			gust
 		}
 		
-	}//End Movelis Class
+	}*///End Movelis Class
 }
