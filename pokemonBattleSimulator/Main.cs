@@ -106,6 +106,18 @@ namespace pokemonBattleSimulator
 			
 			
 			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			/*movelist someTemp = new movelist();
 			movelist[] tempArray = new movelist[movelist.moves.ember];*/
 			
@@ -174,10 +186,45 @@ namespace pokemonBattleSimulator
 			calculate calPkmnOrder = new calculate();
 			battleFlow = calPkmnOrder.setBattleFlow(Charmander, Pikachu);
 			
+			//We space this out a bit, gotta keep it clean
 			Console.WriteLine(" ");
 			Console.WriteLine(" ");
 			Console.WriteLine(" ");
 			Console.WriteLine(" ");
+			
+			
+			
+			
+			
+			
+			
+			
+			//////////////////////////
+			//////////////////////////
+			//CREATE PKMN TRAINER
+			//////////////////////////
+			//////////////////////////
+			
+			//We set the move list for the first Pokemon
+			List<pokemon> pkmnTeamList = new List<pokemon>();
+			
+			trainer trainerLass = new trainer("Anna", trainer.e_classType.lass, pkmnTeamList);
+			Console.WriteLine("Trainer: " + trainerLass.name + " " + trainerLass.trainerClass + " " + trainerLass.team.Count);
+			pkmnTeamList.Add(Pikachu);
+			Console.WriteLine("Trainer: " + trainerLass.name + " " + trainerLass.trainerClass + " " + trainerLass.team.Count + " " + trainerLass.team[0].name);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			// <DEBUG> We check the order the pokemon will battle.
 			foreach(pokemon thingddddds in battleFlow){
@@ -390,13 +437,12 @@ namespace pokemonBattleSimulator
 	///////////////////
 	/// Class Calculate.
 	///////////////////
-	//Might not use it
+	
 	class calculate{
 		
 		
 		//We declare the switch in here	
 		public	static string updateBattleInfo = "notUpdated";
-		
 		
 		//Function called through the timer
 		public static void DisplayTimeEvent( object source, ElapsedEventArgs e ){
@@ -478,4 +524,48 @@ namespace pokemonBattleSimulator
 		}
 		
 	}*///End Movelis Class
+	
+	
+	
+	
+	
+	///////////////////
+	/// Class Trainer
+	///////////////////
+	class trainer{
+		//public int id;
+		public string name;
+		public e_classType trainerClass;
+		//public int teamNum;
+		/*public int items;
+		public int speed;
+		public status pkmnStatus = status.canBattle;
+		public theType assignType;*/
+		public  List<pokemon> team = new List<pokemon>();
+		
+		
+		
+		public enum e_classType{
+			lass,
+			bugCatchter,
+			rocketGrunt,
+			biker,
+			burglar,
+			schoolKid
+		}
+		
+		
+		
+		
+		//We make a constructor to set the trainer
+		public trainer(string trainerName, e_classType trainerClassType, List<pokemon> trainerTeam){
+			name = trainerName;
+			//classType = trainerClassType;
+			trainerClass = trainerClassType;
+			team = trainerTeam;
+		}
+		
+	}//End trainer Class
+	
+	
 }
