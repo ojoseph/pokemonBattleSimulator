@@ -151,7 +151,7 @@ namespace pokemonBattleSimulator
 			//battleFlow.Add(Charmander);
 			
 			//We add Charmander as a participant
-			participants.Add(Charmander);
+			//participants.Add(Charmander);
 			
 			//We space the info out a bit.
 			Console.WriteLine(" ");
@@ -179,8 +179,7 @@ namespace pokemonBattleSimulator
 			Pikachu.showPkmnStats();
 			//We add Pikachu to the flow
 			//battleFlow.Add(Pikachu);
-			//We add Pikachu as a participant
-			participants.Add(Pikachu);
+			
 			
 			//We set the pokemon battleflow
 			calculate calPkmnOrder = new calculate();
@@ -216,6 +215,8 @@ namespace pokemonBattleSimulator
 			//We show the trainer's Stats
 			trainerLass.showTrainerStats();
 			
+			//We add Pikachu as a participant
+			participants.Add(trainerLass.team[0]);
 			
 			//We clear the table and get it ready for the next trainer
 			pkmnTeamList.Clear();
@@ -230,7 +231,8 @@ namespace pokemonBattleSimulator
 			//We show the trainer's Stats
 			trainerCoolgtrainer.showTrainerStats();
 			
-			
+			//We add Pikachu as a participant
+			participants.Add(trainerCoolgtrainer.team[0]);
 			
 			
 			
