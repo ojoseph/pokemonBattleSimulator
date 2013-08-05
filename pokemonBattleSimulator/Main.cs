@@ -21,7 +21,8 @@ namespace pokemonBattleSimulator
 		public static List<pokemon> battleFlow = new List<pokemon>();
 		//Let us know which pokemon will fight 
 		public static List<pokemon> participants = new List<pokemon>();
-	
+		//Let us know which Trainers will  be in the game 
+		public static List<trainer> participatingTrainers = new List<trainer>();
 		
 		public static void Main (string[] args){	
 
@@ -42,7 +43,7 @@ namespace pokemonBattleSimulator
 						Console.WriteLine(" ");
 						Console.WriteLine("GAME PHASE: BATTLE");
 						//Console.WriteLine(participants);
-						currPhase = phaseBattle(participants);
+						currPhase = phaseBattle(participants, participatingTrainers);
 					break;
 					case gamePhase.gameover:
 						Console.WriteLine(" ");
@@ -200,15 +201,15 @@ namespace pokemonBattleSimulator
 			//////////////////////////
 			
 			//We set the move list for the first Pokemon
-			List<pokemon> pkmnTeamList = new List<pokemon>();
+			List<pokemon> pkmnTeamListTrainer1 = new List<pokemon>();
 			
-			trainer trainerLass = new trainer("Anna", trainer.e_classType.lass, pkmnTeamList);
+			trainer trainerLass = new trainer("Anna", trainer.e_classType.lass, pkmnTeamListTrainer1);
 			Console.WriteLine("Trainer: " + trainerLass.name + " " + trainerLass.trainerClass + " " + trainerLass.team.Count);
 			
 			//We assign pikachu to a trainer
 			Pikachu.trainerName = trainerLass.name;
 			//We add pikachu to the trainer's team.
-			pkmnTeamList.Add(Pikachu);
+			pkmnTeamListTrainer1.Add(Pikachu);
 			
 			
 			
@@ -218,31 +219,45 @@ namespace pokemonBattleSimulator
 			
 			//We add Pikachu as a participant
 			participants.Add(trainerLass.team[0]);
+			//Lass joins the fight
+			participatingTrainers.Add(trainerLass);
+			trainerLass.showTrainerStats();
 			
 			//We clear the table and get it ready for the next trainer
-			pkmnTeamList.Clear();
+			//pkmnTeamList.Clear();
 			
+			
+			
+			
+			
+			
+			
+			//We set the move list for the first Pokemon
+			List<pokemon> pkmnTeamListTrainer2 = new List<pokemon>();
 			
 			//We create a new trainer.
-			trainer trainerCoolgtrainer = new trainer("Amaya", trainer.e_classType.coolTrainer, pkmnTeamList);
+			trainer trainerCoolgtrainer = new trainer("Amaya", trainer.e_classType.coolTrainer, pkmnTeamListTrainer2);
 			//Console.WriteLine("Trainer: " + trainerCoolgtrainer.name + " " + trainerCoolgtrainer.trainerClass + " " + trainerCoolgtrainer.team.Count + " " + trainerCoolgtrainer.team[0].name);
 			
 			
 			//We assign charmander to a trainer
 			Charmander.trainerName = trainerCoolgtrainer.name;
 			//We put charmander in the list we want to add to the trainer
-			pkmnTeamList.Add(Charmander);
+			pkmnTeamListTrainer2.Add(Charmander);
+			//Cool trainer joins the fight
+			participatingTrainers.Add(trainerCoolgtrainer);
+			
 			Charmander.showPkmnStats();
 			
 			//We show the trainer's Stats
 			trainerCoolgtrainer.showTrainerStats();
 			
-			//We add Pikachu as a participant
+			//We add Charmander as a participant
 			participants.Add(trainerCoolgtrainer.team[0]);
 			
 			
 			
-			
+			trainerLass.showTrainerStats();
 			
 			// <DEBUG> We check the order the pokemon will battle.
 			foreach(pokemon thingddddds in battleFlow){
@@ -262,7 +277,7 @@ namespace pokemonBattleSimulator
 		
 		//=======================
 		//<!>Phase: BATTLE
-		public static gamePhase phaseBattle(List<pokemon> someImportedArray){
+		public static gamePhase phaseBattle(List<pokemon> someImportedArray, List<trainer> someImportedTrainersArray){
 			
 			//////////////////////////////
 			//We Enter Battle
@@ -301,10 +316,24 @@ namespace pokemonBattleSimulator
 					if(participants[0].pkmnStatus == pokemon.status.fainted){
 							Console.WriteLine("FIRST pokemon has fainted");
 							
+							for(int u = 0; u< someImportedTrainersArray.Count; u++){
+								//Console.WriteLine(someImportedTrainersArray[u].name);
+								if(participants[0].trainerName == someImportedTrainersArray[u].name){
+									Console.WriteLine(someImportedTrainersArray[u].name +"'s "+ participants[0].name + " has fainted");
+								
+									
+									someImportedTrainersArray[u].showTrainerStats();
+								
+								
+									/*someImportedTrainersArray[u].team.Remove(participants[0]);
+									Console.WriteLine("TEAM #: " + someImportedTrainersArray[u].team[0].name);*/
+								}
+							}
 					}
 					
 					if(participants[1].pkmnStatus == pokemon.status.fainted){
 							Console.WriteLine("SECOND pokemon has fainted");
+							
 					}
 					
 					//If a pokemon Faints we break from this loop and read the code that follows
@@ -572,7 +601,7 @@ namespace pokemonBattleSimulator
 		public int speed;
 		public status pkmnStatus = status.canBattle;
 		public theType assignType;*/
-		public  List<pokemon> team = new List<pokemon>();
+		public List<pokemon> team = new List<pokemon>();
 		
 		
 		
