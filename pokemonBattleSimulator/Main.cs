@@ -170,7 +170,7 @@ namespace pokemonBattleSimulator
 			}
 			
 			//We Create a new pokemon ID, Name, HP, Atk, Def
-			pokemon Pikachu = new pokemon(25,"Pikachu",135,55,30,90,pokemon.theType.electric, PikachuMVList);
+			pokemon Pikachu = new pokemon(25,"Pikachu",35,55,30,90,pokemon.theType.electric, PikachuMVList);
 			//We show Pikachu's stats	
 			Pikachu.showPkmnStats();
 			//We add Pikachu to the flow
@@ -319,45 +319,7 @@ namespace pokemonBattleSimulator
 					if(participants[0].pkmnStatus == pokemon.status.fainted){
 							//Console.WriteLine("FIRST pokemon has fainted");
 							
-							for(int u = 0; u< someImportedTrainersArray.Count; u++){
-								//Console.WriteLine(someImportedTrainersArray[u].name);
-								if(participants[0].trainerName == someImportedTrainersArray[u].name){
-								
-									Console.WriteLine(someImportedTrainersArray[u].name +"'s "+ participants[0].name + " has fainted");
-								
-									/*
-									someImportedTrainersArray[u].showTrainerStats();
-									Console.WriteLine("EEEEEEEE" + someImportedTrainersArray[u].team[0].pkmnStatus);
-								
-									someImportedTrainersArray[u].team[0].showPkmnStats();
-									Console.WriteLine("number of pokmemon: " + someImportedTrainersArray[u].team.Count);*/
-									
-									//We check each pokemon that the trainer owns.
-									for(int incre = 0; incre < someImportedTrainersArray[u].team.Count; incre++){
-									
-										//We reset the counter before use.
-										int faintedPkmn = 0;
-									
-										//We check the number of fainted pokemon
-										if(someImportedTrainersArray[u].team[incre].pkmnStatus == pokemon.status.fainted){
-											Console.WriteLine("the pokemon has fainted");
-										
-											//We mark each fainted pokemon with an increment
-											faintedPkmn += 1;
-										
-											//We check if the trainer's whole team has fainted
-											if(faintedPkmn == someImportedTrainersArray[u].team.Count){
-												Console.WriteLine("Trainer "+ someImportedTrainersArray[u].name +" has no more Pokemon!");
-											
-												//If there is no more pokemon than the game is over. We change the trainer's status "hasPkmnToBattle" to false. 
-												someImportedTrainersArray[u].hasPkmnToBattle = false;
-											}//End faintedPkmn
-										
-										}//End Check num fainted pkmn
-									}//End For loop
-								
-								}//End if Participant trainer name = trainer name
-							}//For loop for the trainer's pokemon team
+								trainerCanBattle(someImportedArray,0, someImportedTrainersArray);
 						
 					}//End if  First Active  PKMN faints
 					
