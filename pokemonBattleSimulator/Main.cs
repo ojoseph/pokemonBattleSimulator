@@ -6,7 +6,7 @@ using System.Timers;
 
 namespace pokemonBattleSimulator
 {
-	class MainClass{
+	public class MainClass{
 	
 		//We might use it to determine the game phases
 		public enum gamePhase{	
@@ -288,7 +288,10 @@ namespace pokemonBattleSimulator
 			int turns = 0;
 			
 			//As long that the pokemon can fight we keep going on.
-			while(participants[0].pkmnStatus == pokemon.status.canBattle || participants[1].pkmnStatus == pokemon.status.canBattle ){	
+			//while(participants[0].pkmnStatus == pokemon.status.canBattle || participants[1].pkmnStatus == pokemon.status.canBattle ){	
+			
+			//We changed the condition so that the game ends if the trainer has no more pokemon to send out.
+			while(someImportedTrainersArray[0].hasPkmnToBattle == true || someImportedTrainersArray[1].hasPkmnToBattle == true ){		
 				
 				//calculatePkmn.pokemonAttack(Charmander, Pikachu);
 				calculate calculatePkmn = new calculate();
@@ -319,12 +322,34 @@ namespace pokemonBattleSimulator
 							for(int u = 0; u< someImportedTrainersArray.Count; u++){
 								//Console.WriteLine(someImportedTrainersArray[u].name);
 								if(participants[0].trainerName == someImportedTrainersArray[u].name){
+								
 									Console.WriteLine(someImportedTrainersArray[u].name +"'s "+ participants[0].name + " has fainted");
 								
 									
 									someImportedTrainersArray[u].showTrainerStats();
+									Console.WriteLine("EEEEEEEE" + someImportedTrainersArray[u].team[0].pkmnStatus);
+								
+									someImportedTrainersArray[u].team[0].showPkmnStats();
+									Console.WriteLine("number of pokmemon: " + someImportedTrainersArray[u].team.Count);
+									
+									for(int incre = 0; incre < someImportedTrainersArray[u].team.Count; incre++){
+										int faintedPkmn = 0;
+										//We check the number of fainted pokemon
+										if(someImportedTrainersArray[u].team[incre].pkmnStatus == pokemon.status.fainted){
+											Console.WriteLine("the pokemon has fainted");
+											faintedPkmn += 1;
+										
+											//We check if the trainer's whole team has fainted
+											if(faintedPkmn == someImportedTrainersArray[u].team.Count){
+												Console.WriteLine("Trainer "+ someImportedTrainersArray[u].name +" has no more Pokemon!");
+												//If there is no more pokemon than the game is over. We change the trainer's status "hasPkmnToBattle" to false. 
+												someImportedTrainersArray[u].hasPkmnToBattle = false;
+											}
+										}
+									}
 								
 								
+									//someImportedTrainersArray[u].team.Count();
 									/*someImportedTrainersArray[u].team.Remove(participants[0]);
 									Console.WriteLine("TEAM #: " + someImportedTrainersArray[u].team[0].name);*/
 								}
@@ -387,7 +412,7 @@ namespace pokemonBattleSimulator
 	/// Class Pokemon.
 	///////////////////
 	//Our Pokemon Class, we call it when we create a new pokemon
-	class pokemon{
+	public class pokemon{
 		  
 		//The info Concerning the Pokemon goes here
 		public int id;
@@ -592,7 +617,7 @@ namespace pokemonBattleSimulator
 	///////////////////
 	/// Class Trainer
 	///////////////////
-	class trainer{
+	public class trainer{
 		//public int id;
 		public string name;
 		public e_classType trainerClass;
@@ -602,7 +627,7 @@ namespace pokemonBattleSimulator
 		public status pkmnStatus = status.canBattle;
 		public theType assignType;*/
 		public List<pokemon> team = new List<pokemon>();
-		
+		public bool hasPkmnToBattle = true;
 		
 		
 		public enum e_classType{
