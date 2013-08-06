@@ -116,6 +116,31 @@ namespace pokemonBattleSimulator
 			
 			
 			
+			/*movelist someTemp = new movelist();
+			movelist[] tempArray = new movelist[movelist.moves.ember];*/
+			
+			//We set the move list for the first Pokemon
+			List<pokemon.moves> SquirtleMVList = new List<pokemon.moves>();
+			SquirtleMVList.Add(pokemon.moves.bite);
+			SquirtleMVList.Add(pokemon.moves.watergun);
+			SquirtleMVList.Add(pokemon.moves.tackle);
+			SquirtleMVList.Add(pokemon.moves.surf);
+			Console.WriteLine("##################");
+			
+			
+			//We Create a new pokemon ID, Name, HP, Atk, Def, Speed
+			pokemon Squirtle = new pokemon(7,"Squirtle",44,48,65,43,pokemon.theType.water, SquirtleMVList);
+			//We show Squirtle' stats	
+			Squirtle.showPkmnStats();
+			
+			
+			
+			//We space the info out a bit.
+			Console.WriteLine(" ");
+			Console.WriteLine(" ");
+			Console.WriteLine(" ");
+			Console.WriteLine(" ");
+			
 			
 			
 			
@@ -178,8 +203,9 @@ namespace pokemonBattleSimulator
 			
 			
 			//We set the pokemon battleflow
-			calculate calPkmnOrder = new calculate();
-			battleFlow = calPkmnOrder.setBattleFlow(Charmander, Pikachu);
+			/*calculate calPkmnOrder = new calculate();
+			battleFlow = calPkmnOrder.setBattleFlow(Charmander, Pikachu);*/
+			
 			
 			//We space this out a bit, gotta keep it clean
 			Console.WriteLine(" ");
@@ -207,11 +233,22 @@ namespace pokemonBattleSimulator
 			Console.WriteLine("Trainer: " + trainerLass.name + " " + trainerLass.trainerClass + " " + trainerLass.team.Count);
 			
 			//We assign pikachu to a trainer
-			Pikachu.trainerName = trainerLass.name;
+			//Pikachu.trainerName = trainerLass.name;
 			//We add pikachu to the trainer's team.
-			pkmnTeamListTrainer1.Add(Pikachu);
+			//pkmnTeamListTrainer1.Add(Pikachu);
 			
 			
+			
+			
+			
+			//##### SQUIRTLE #########
+			//We assign squirtle to a trainer
+			Squirtle.trainerName = trainerLass.name;
+			//We add the pokemon to trainer1's team
+			pkmnTeamListTrainer1.Add(Squirtle);
+			
+			
+			Console.WriteLine("Trainer: " + trainerLass.name + " " + trainerLass.trainerClass + " " + trainerLass.team.Count + " Pkmn in the Team");
 			
 			//Console.WriteLine("Trainer: " + trainerLass.name + " " + trainerLass.trainerClass + " " + trainerLass.team.Count + " " + trainerLass.team[0].name);
 			//We show the trainer's Stats
@@ -256,8 +293,25 @@ namespace pokemonBattleSimulator
 			participants.Add(trainerCoolgtrainer.team[0]);
 			
 			
-			
+			//Show trainer Lass's stats
 			trainerLass.showTrainerStats();
+			
+			
+			
+			
+			
+			
+			
+			//Add the trainer's pokemon in the battleflow
+			//We set the pokemon battleflow
+			calculate calPkmnOrder = new calculate();
+			battleFlow = calPkmnOrder.setBattleFlow(trainerCoolgtrainer.team[0], trainerLass.team[0]);
+			
+			
+			
+			
+			
+			
 			
 			// <DEBUG> We check the order the pokemon will battle.
 			foreach(pokemon thingddddds in battleFlow){
@@ -577,7 +631,7 @@ namespace pokemonBattleSimulator
 			//We skip a line to make it clean, you know!
 			Console.WriteLine(" ");
 			//We atk pikachu and change it Hp.
-			defPkmn.hp -= ( atkPkmn.attack - defPkmn.defense);
+			defPkmn.hp -= Math.Abs( atkPkmn.attack - defPkmn.defense);
 			//Console.WriteLine("the Hp" + defPkmn.hp);
 			defPkmn.checkFaints();
 			// defPkmn.showPkmnStats();
