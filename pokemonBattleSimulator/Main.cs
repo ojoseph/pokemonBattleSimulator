@@ -375,6 +375,25 @@ namespace pokemonBattleSimulator
 							
 						trainerCanBattle(someImportedArray,0, someImportedTrainersArray);
 						
+						
+						//Before we Start anything we check the train can fight, if no we swtich its status to false. and it ends the battle
+						
+						//Checks out how many pkmn fainted
+						int faintedPkmnCounter = 0;
+						//We go through the whole pokemon team and check if the trainer can still fight
+						for(int y = 0; y < someImportedTrainersArray[0].team.Count; y++ ){
+							if(someImportedTrainersArray[0].team[y].pkmnStatus == pokemon.status.fainted ){
+								faintedPkmnCounter++;
+								if(faintedPkmnCounter == someImportedTrainersArray[0].team.Count){
+									
+									//The trainer is unable to battle so we end this.
+									someImportedTrainersArray[0].hasPkmnToBattle = false;
+								}
+							}
+						}
+						
+						
+						//The trainer has still some pokemon left and send it to battle.
 						if(someImportedTrainersArray[0].hasPkmnToBattle == true){
 								Console.WriteLine("     ");
 								Console.WriteLine("     ");
@@ -384,10 +403,10 @@ namespace pokemonBattleSimulator
 								Console.WriteLine("TRAINER SENDS ANOTHER POKEMON OUT!!!!!!!!!");
 								Console.WriteLine("TRAINER SENDS ANOTHER POKEMON OUT!!!!!!!!!");
 						
-							
-								//participants[0] = someImportedTrainersArray[0].team[1];
 								
-								for( int y = 0; y < someImportedTrainersArray[0].team.Count; y++ ){
+							
+								for(int y = 0; y < someImportedTrainersArray[0].team.Count; y++ ){
+
 									if(someImportedTrainersArray[0].team[y].pkmnStatus == pokemon.status.canBattle){
 										Console.WriteLine("We have another pokemon that we can send out");
 										//Once we found the new target we break from the loop.
@@ -395,13 +414,14 @@ namespace pokemonBattleSimulator
 										//battleFlow = calPkmnOrder.setBattleFlow(trainerCoolgtrainer.team[0], trainerLass.team[y]);
 										
 									
-										// <DEBUG> We check the order the pokemon will battle.
-										foreach(pokemon thingddddds in battleFlow){
+										//  We update the battle flow to determine the turns.
+										foreach(pokemon currFigthing in battleFlow){
 											
 											
-											if(thingddddds.pkmnStatus == pokemon.status.fainted){
-												Console.WriteLine("The PKMN: " + thingddddds.name + " HAS FAINTED AND WILL BE REMOVED");
-												//We update the battle flow by switching the fainted pokemon for one that can battle,
+											if(currFigthing.pkmnStatus == pokemon.status.fainted){
+												Console.WriteLine("The PKMN: " + currFigthing.name + " HAS FAINTED AND WILL BE REMOVED");
+												
+											//We update the battle flow by switching the fainted pokemon for one that can battle,
 												battleFlow[turns] = someImportedTrainersArray[0].team[y];
 											}
 										}
@@ -416,7 +436,7 @@ namespace pokemonBattleSimulator
 							
 							
 						}else{
-							Console.WriteLine("Trainer: Oh now i have lost >_<  ");	
+							Console.WriteLine("Trainer Lass: Oh no! I have lost >_<  ");	
 							break;
 						}
 						
@@ -426,15 +446,34 @@ namespace pokemonBattleSimulator
 					
 					if(participants[1].pkmnStatus == pokemon.status.fainted){
 							//Console.WriteLine("SECOND pokemon has fainted");
-						
+							trainerCanBattle(someImportedArray,1, someImportedTrainersArray);
 							
 						
-							trainerCanBattle(someImportedArray,1, someImportedTrainersArray);
+						
+							//Before we Start anything we check the train can fight, if no we swtich its status to false. and it ends the battle
+							
+							//Checks out how many pkmn fainted
+							int faintedPkmnCounter = 0;
+							//We go through the whole pokemon team and check if the trainer can still fight
+							for(int y = 0; y < someImportedTrainersArray[0].team.Count; y++ ){
+								if(someImportedTrainersArray[0].team[y].pkmnStatus == pokemon.status.fainted ){
+									faintedPkmnCounter++;
+									if(faintedPkmnCounter == someImportedTrainersArray[0].team.Count){
+										
+										//The trainer is unable to battle so we end this.
+										someImportedTrainersArray[0].hasPkmnToBattle = false;
+									}
+								}
+							}
+						
 						
 							if(someImportedTrainersArray[1].hasPkmnToBattle == true){
 								//If the trainer has another pkmn we send it out asap	
+								reSlctPkmn(someImportedTrainersArray[1].team[0],battleFlow,someImportedTrainersArray,1,turns);
+								//reSlctPkmn(pokemon willBeFigthing, List<pokemon>battleFlow, List<trainer> someImportedTrainersArray, int indexTrainer, int currTurn ){
+							
 							}else{
-								Console.WriteLine("Darn! My pokemon, oh well good fight!");	
+								Console.WriteLine("Cool Trainer: Darn! My pokemon, oh well good fight!");	
 								break;
 							}
 					}
@@ -453,6 +492,35 @@ namespace pokemonBattleSimulator
 		}
 		
 		
+		//=======================
+		//<!>Phase: GAMEOVER
+		public static gamePhase phaseGameover(){
+			Console.WriteLine("GAME - OVER");
+			
+			
+			//<Change Phase> Game is over so we quick
+			return gamePhase.credits;
+		}
+		
+		
+		
+		//=======================
+		//<!>Phase: CREDITS
+		public static gamePhase phaseCredits(){
+			Console.WriteLine("THANK YOU FOR PLAYING POKEMON C# Version!");
+			Console.WriteLine("@ 2013 Copypasta Rigths None!");
+			
+			//<Change Phase> Game is over so we quick
+			return gamePhase.quit;
+		}
+		
+		//-------------------------------------------------------------------------------------------------------------------------
+		//----------------------------------------------------------FSM END---------------------------------------------------------------
+		//-------------------------------------------------------------------------------------------------------------------------
+		
+		
+		
+		//Check if the trainer can still battle
 		public static  void trainerCanBattle(List<pokemon>  participantPkmn,int indexParticipating, List<trainer>  trainerArray){
 		
 			
@@ -492,36 +560,38 @@ namespace pokemonBattleSimulator
 
 			
 		}
-
 		
 		
-		
-		//=======================
-		//<!>Phase: GAMEOVER
-		public static gamePhase phaseGameover(){
-			Console.WriteLine("GAME - OVER");
+		public static pokemon reSlctPkmn(pokemon willBeFigthing, List<pokemon>battleFlow, List<trainer> someImportedTrainersArray, int indexTrainer, int currTurn ){
+			pokemon tempReturnValue = null;
 			
+			for( int y = 0; y < someImportedTrainersArray[indexTrainer].team.Count; y++ ){
+				if(someImportedTrainersArray[0].team[y].pkmnStatus == pokemon.status.canBattle){
+					Console.WriteLine("We have another pokemon that we can send out");
+					//Once we found the new target we break from the loop.
+					participants[0] = someImportedTrainersArray[0].team[y];
+					//battleFlow = calPkmnOrder.setBattleFlow(trainerCoolgtrainer.team[0], trainerLass.team[y]);
+					
+				
+					//  We update the battle flow to determine the turns.
+					foreach(pokemon currFigthing in battleFlow){
+						if(currFigthing.pkmnStatus == pokemon.status.fainted){
+							Console.WriteLine("The PKMN: " + currFigthing.name + " HAS FAINTED AND WILL BE REMOVED");
+							
+						//We update the battle flow by switching the fainted pokemon for one that can battle,
+							//battleFlow[currTurn] = someImportedTrainersArray[0].team[y];
+							//return someImportedTrainersArray[0].team[y];
+							tempReturnValue = someImportedTrainersArray[0].team[y];
+						}
+					}
+					
+					break;
+					// <!> We need to  put that pokemon in a var that we can lated assign below for the switch
+				}
+			}
 			
-			//<Change Phase> Game is over so we quick
-			return gamePhase.credits;
+				return tempReturnValue;
 		}
-		
-		
-		
-		//=======================
-		//<!>Phase: CREDITS
-		public static gamePhase phaseCredits(){
-			Console.WriteLine("THANK YOU FOR PLAYING POKEMON C# Version!");
-			Console.WriteLine("@ 2013 Copypasta Rigths None!");
-			
-			//<Change Phase> Game is over so we quick
-			return gamePhase.quit;
-		}
-		
-		//-------------------------------------------------------------------------------------------------------------------------
-		//----------------------------------------------------------FSM END---------------------------------------------------------------
-		//-------------------------------------------------------------------------------------------------------------------------
-		
 		
 		
 	}//End MainClass
