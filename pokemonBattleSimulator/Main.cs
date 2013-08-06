@@ -367,13 +367,13 @@ namespace pokemonBattleSimulator
 				
 				//If a pokemon Faints we end the Battle
 				if(battleFlow[turns].pkmnStatus == pokemon.status.fainted || battleFlow[turns+1].pkmnStatus == pokemon.status.fainted ){
-					//We remove the fainted pokemon from the trainer's team as it is unable to battle.
+					
 					
 					
 					if(participants[0].pkmnStatus == pokemon.status.fainted){
-							//Console.WriteLine("FIRST pokemon has fainted");
+						//Console.WriteLine("FIRST pokemon has fainted");
 							
-								trainerCanBattle(someImportedArray,0, someImportedTrainersArray);
+						trainerCanBattle(someImportedArray,0, someImportedTrainersArray);
 						
 						if(someImportedTrainersArray[0].hasPkmnToBattle == true){
 								Console.WriteLine("     ");
@@ -383,9 +383,40 @@ namespace pokemonBattleSimulator
 								Console.WriteLine("TRAINER SENDS ANOTHER POKEMON OUT!!!!!!!!!");
 								Console.WriteLine("TRAINER SENDS ANOTHER POKEMON OUT!!!!!!!!!");
 								Console.WriteLine("TRAINER SENDS ANOTHER POKEMON OUT!!!!!!!!!");
-								Console.WriteLine("We can send another pokemon to battle");
-							participants[0] = someImportedTrainersArray[0].team[1];
+						
+							
+								//participants[0] = someImportedTrainersArray[0].team[1];
+								
+								for( int y = 0; y < someImportedTrainersArray[0].team.Count; y++ ){
+									if(someImportedTrainersArray[0].team[y].pkmnStatus == pokemon.status.canBattle){
+										Console.WriteLine("We have another pokemon that we can send out");
+										//Once we found the new target we break from the loop.
+										participants[0] = someImportedTrainersArray[0].team[y];
+										//battleFlow = calPkmnOrder.setBattleFlow(trainerCoolgtrainer.team[0], trainerLass.team[y]);
+										
+									
+										// <DEBUG> We check the order the pokemon will battle.
+										foreach(pokemon thingddddds in battleFlow){
+											
+											
+											if(thingddddds.pkmnStatus == pokemon.status.fainted){
+												Console.WriteLine("The PKMN: " + thingddddds.name + " HAS FAINTED AND WILL BE REMOVED");
+												//We update the battle flow by switching the fainted pokemon for one that can battle,
+												battleFlow[turns] = someImportedTrainersArray[0].team[y];
+											}
+										}
+									
+										break;
+										// <!> We need to  put that pokemon in a var that we can lated assign below for the switch
+									}
+								}
+							
+								//We make the pkmn switch here
+								//participants[0] = someImportedTrainersArray[0].team[1];
+							
+							
 						}else{
+							Console.WriteLine("Trainer: Oh now i have lost >_<  ");	
 							break;
 						}
 						
@@ -394,16 +425,16 @@ namespace pokemonBattleSimulator
 					
 					
 					if(participants[1].pkmnStatus == pokemon.status.fainted){
-							Console.WriteLine("SECOND pokemon has fainted");
+							//Console.WriteLine("SECOND pokemon has fainted");
 						
-							//We have to add the script for this one here too.
+							
 						
 							trainerCanBattle(someImportedArray,1, someImportedTrainersArray);
 						
 							if(someImportedTrainersArray[1].hasPkmnToBattle == true){
 								//If the trainer has another pkmn we send it out asap	
 							}else{
-								Console.WriteLine("I CANT FIGHT MAN ");	
+								Console.WriteLine("Darn! My pokemon, oh well good fight!");	
 								break;
 							}
 					}
