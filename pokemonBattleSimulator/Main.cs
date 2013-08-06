@@ -469,7 +469,13 @@ namespace pokemonBattleSimulator
 						
 							if(someImportedTrainersArray[1].hasPkmnToBattle == true){
 								//If the trainer has another pkmn we send it out asap	
-								reSlctPkmn(someImportedTrainersArray[1].team[0],battleFlow,someImportedTrainersArray,1,turns);
+									for(int y = 0; y < someImportedTrainersArray[0].team.Count; y++ ){
+										if(someImportedTrainersArray[0].team[y].pkmnStatus == pokemon.status.canBattle){
+											reSlctPkmn(someImportedTrainersArray[1].team[y],battleFlow,someImportedTrainersArray,1,turns);
+										}
+									}
+								
+							
 								//reSlctPkmn(pokemon willBeFigthing, List<pokemon>battleFlow, List<trainer> someImportedTrainersArray, int indexTrainer, int currTurn ){
 							
 							}else{
