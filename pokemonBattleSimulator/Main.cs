@@ -233,9 +233,9 @@ namespace pokemonBattleSimulator
 			Console.WriteLine("Trainer: " + trainerLass.name + " " + trainerLass.trainerClass + " " + trainerLass.team.Count);
 			
 			//We assign pikachu to a trainer
-			//Pikachu.trainerName = trainerLass.name;
+			Pikachu.trainerName = trainerLass.name;
 			//We add pikachu to the trainer's team.
-			//pkmnTeamListTrainer1.Add(Pikachu);
+			pkmnTeamListTrainer1.Add(Pikachu);
 			
 			
 			
@@ -375,6 +375,20 @@ namespace pokemonBattleSimulator
 							
 								trainerCanBattle(someImportedArray,0, someImportedTrainersArray);
 						
+						if(someImportedTrainersArray[0].hasPkmnToBattle == true){
+								Console.WriteLine("     ");
+								Console.WriteLine("     ");
+								Console.WriteLine("     ");
+								Console.WriteLine("TRAINER SENDS ANOTHER POKEMON OUT!!!!!!!!!");
+								Console.WriteLine("TRAINER SENDS ANOTHER POKEMON OUT!!!!!!!!!");
+								Console.WriteLine("TRAINER SENDS ANOTHER POKEMON OUT!!!!!!!!!");
+								Console.WriteLine("TRAINER SENDS ANOTHER POKEMON OUT!!!!!!!!!");
+								Console.WriteLine("We can send another pokemon to battle");
+							participants[0] = someImportedTrainersArray[0].team[1];
+						}else{
+							break;
+						}
+						
 					}//End if  First Active  PKMN faints
 					
 					
@@ -385,11 +399,19 @@ namespace pokemonBattleSimulator
 							//We have to add the script for this one here too.
 						
 							trainerCanBattle(someImportedArray,1, someImportedTrainersArray);
+						
+							if(someImportedTrainersArray[1].hasPkmnToBattle == true){
+								//If the trainer has another pkmn we send it out asap	
+							}else{
+								Console.WriteLine("I CANT FIGHT MAN ");	
+								break;
+							}
 					}
+					
 					
 					//<OLD>If a pokemon Faints we break from this loop and read the code that follows
 					//If trainer 1  has no more pokemon to send , than we break the loop. 
-					break;
+					//break;
 				}
 				
 			}
