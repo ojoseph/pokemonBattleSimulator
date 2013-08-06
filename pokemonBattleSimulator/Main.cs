@@ -170,7 +170,7 @@ namespace pokemonBattleSimulator
 			}
 			
 			//We Create a new pokemon ID, Name, HP, Atk, Def
-			pokemon Pikachu = new pokemon(25,"Pikachu",35,55,30,90,pokemon.theType.electric, PikachuMVList);
+			pokemon Pikachu = new pokemon(25,"Pikachu",135,55,30,90,pokemon.theType.electric, PikachuMVList);
 			//We show Pikachu's stats	
 			Pikachu.showPkmnStats();
 			//We add Pikachu to the flow
@@ -317,7 +317,7 @@ namespace pokemonBattleSimulator
 					
 					
 					if(participants[0].pkmnStatus == pokemon.status.fainted){
-							Console.WriteLine("FIRST pokemon has fainted");
+							//Console.WriteLine("FIRST pokemon has fainted");
 							
 							for(int u = 0; u< someImportedTrainersArray.Count; u++){
 								//Console.WriteLine(someImportedTrainersArray[u].name);
@@ -325,43 +325,54 @@ namespace pokemonBattleSimulator
 								
 									Console.WriteLine(someImportedTrainersArray[u].name +"'s "+ participants[0].name + " has fainted");
 								
-									
+									/*
 									someImportedTrainersArray[u].showTrainerStats();
 									Console.WriteLine("EEEEEEEE" + someImportedTrainersArray[u].team[0].pkmnStatus);
 								
 									someImportedTrainersArray[u].team[0].showPkmnStats();
-									Console.WriteLine("number of pokmemon: " + someImportedTrainersArray[u].team.Count);
+									Console.WriteLine("number of pokmemon: " + someImportedTrainersArray[u].team.Count);*/
 									
+									//We check each pokemon that the trainer owns.
 									for(int incre = 0; incre < someImportedTrainersArray[u].team.Count; incre++){
+									
+										//We reset the counter before use.
 										int faintedPkmn = 0;
+									
 										//We check the number of fainted pokemon
 										if(someImportedTrainersArray[u].team[incre].pkmnStatus == pokemon.status.fainted){
 											Console.WriteLine("the pokemon has fainted");
+										
+											//We mark each fainted pokemon with an increment
 											faintedPkmn += 1;
 										
 											//We check if the trainer's whole team has fainted
 											if(faintedPkmn == someImportedTrainersArray[u].team.Count){
 												Console.WriteLine("Trainer "+ someImportedTrainersArray[u].name +" has no more Pokemon!");
+											
 												//If there is no more pokemon than the game is over. We change the trainer's status "hasPkmnToBattle" to false. 
 												someImportedTrainersArray[u].hasPkmnToBattle = false;
-											}
-										}
-									}
+											}//End faintedPkmn
+										
+										}//End Check num fainted pkmn
+									}//End For loop
 								
-								
-									//someImportedTrainersArray[u].team.Count();
-									/*someImportedTrainersArray[u].team.Remove(participants[0]);
-									Console.WriteLine("TEAM #: " + someImportedTrainersArray[u].team[0].name);*/
-								}
-							}
-					}
+								}//End if Participant trainer name = trainer name
+							}//For loop for the trainer's pokemon team
+						
+					}//End if  First Active  PKMN faints
+					
+					
 					
 					if(participants[1].pkmnStatus == pokemon.status.fainted){
 							Console.WriteLine("SECOND pokemon has fainted");
-							
+						
+							//We have to add the script for this one here too.
+						
+							trainerCanBattle(someImportedArray,1, someImportedTrainersArray);
 					}
 					
-					//If a pokemon Faints we break from this loop and read the code that follows
+					//<OLD>If a pokemon Faints we break from this loop and read the code that follows
+					//If trainer 1  has no more pokemon to send , than we break the loop. 
 					break;
 				}
 				
@@ -371,6 +382,48 @@ namespace pokemonBattleSimulator
 			//<Change Phase> The battle is over so we show the game over
 			return gamePhase.gameover;
 		}
+		
+		
+		public static  void trainerCanBattle(List<pokemon>  participantPkmn,int indexParticipating, List<trainer>  trainerArray){
+		
+			
+			for(int u = 0; u< trainerArray.Count; u++){
+								//Console.WriteLine(someImportedTrainersArray[u].name);
+								if(participantPkmn[indexParticipating].trainerName == trainerArray[u].name){
+								
+									Console.WriteLine(trainerArray[u].name +"'s "+ participantPkmn[indexParticipating].name + " has fainted");
+									
+									//We check each pokemon that the trainer owns.
+									for(int incre = 0; incre < trainerArray[u].team.Count; incre++){
+									
+										//We reset the counter before use.
+										int faintedPkmn = 0;
+									
+										//We check the number of fainted pokemon
+										if(trainerArray[u].team[incre].pkmnStatus == pokemon.status.fainted){
+											Console.WriteLine("the pokemon has fainted");
+										
+											//We mark each fainted pokemon with an increment
+											faintedPkmn += 1;
+										
+											//We check if the trainer's whole team has fainted
+											if(faintedPkmn == trainerArray[u].team.Count){
+												Console.WriteLine("Trainer "+ trainerArray[u].name +" has no more Pokemon!");
+											
+												//If there is no more pokemon than the game is over. We change the trainer's status "hasPkmnToBattle" to false. 
+												trainerArray[u].hasPkmnToBattle = false;
+											}//End faintedPkmn
+										
+										}//End Check num fainted pkmn
+									}//End For loop
+								
+								}//End if Participant trainer name = trainer name
+							}//For loop for the trainer's pokemon team
+			
+
+			
+		}
+
 		
 		
 		
